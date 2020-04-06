@@ -1,0 +1,4 @@
+npm install knex 
+npx knex init  <= Cria o arquivo de configuração do banco "knexfile.js"
+
+npm install pg  <= Conexão com o postgree

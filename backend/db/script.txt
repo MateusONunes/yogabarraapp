@@ -1,0 +1,66 @@
+drop TRIGGER if exists trg_person_pers_bi on person_pers;
+drop FUNCTION if exists ptrg_personal_pers;
+drop sequence if exists gen_code_pers;
+drop table if exists person_typeperson_ptpr;
+drop table if exists persontype_ptyp;
+drop table if exists person_pers;
+commit;
+
+create table person_pers
+(
+    code_pers integer,
+	name_pers varchar(100),
+	birth_pers date,
+	address_pers varchar(100),
+	city_pers varchar(50),
+	zipcode_pers varchar(15),
+	cpf_pers varchar(15),
+	rg_pers varchar(15),
+	city_pers varchar(50),
+	phonewhats_pers varchar(20),
+	phone2_pers varchar(20),
+	phone3_pers varchar(20),
+	email_pers varchar(60),
+	fisicajuridica_pers char(1),
+	comments_pers text
+);
+
+COMMENT ON COLUMN person_pers.fisicajuridica_pers IS '(F/J)Física-Jurídica';
+
+create unique index pk_person_pers on person_pers(code_pers);
+
+comment on table person_pers is 'cadastro de pessoas';
+
+create table persontype_ptyp(
+	code_ptyp smallint,
+	name_ptyp varchar(20)
+);
+
+create unique index pk_persontype_ptyp on persontype_ptyp(code_ptyp);
+
+insert into persontype_ptyp(code_ptyp, name_ptyp) values (1, 'Administrador');
+insert into persontype_ptyp(code_ptyp, name_ptyp) values (2, 'Instrutor');
+insert into persontype_ptyp(code_ptyp, name_ptyp) values (3, 'Aluno');
+
+create table person_typeperson_ptpr(
+	code_pers integer,
+	code_ptyp smallint
+);
+
+alter table person_typeperson_ptpr add foreign key (code_pers) references person_pers (code_pers) match simple on update no action on delete no action not valid;
+create index fk_person_typeperson_ptpr1 on person_typeperson_ptpr(code_pers);
+	
+alter table person_typeperson_ptpr add foreign key (code_ptyp) references persontype_ptyp (code_ptyp) match simple on update no action on delete no action not valid;
+create index fk_person_typeperson_ptpr2 on person_typeperson_ptpr(code_ptyp);
+	
+create sequence gen_code_pers;
+
+CREATE OR REPLACE FUNCTION ptrg_personal_pers() RETURNS "trigger" AS
+$BODY$
+    BEGIN
+      New.code_pers := nextval('gen_code_pers');
+      Return NEW;
+    END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_person_pers_bi BEFORE INSERT ON person_pers FOR EACH ROW EXECUTE PROCEDURE ptrg_personal_pers();
