@@ -1,1 +1,6 @@
 /backend/node_modules
+/mobile/yarn.lock
+/mobile/assets
+/mobile/package-lock.json
+/mobile/yarn-error.log
+/backend/package-lock.json
