@@ -19,10 +19,10 @@ export default StyleSheet.create({
     enterbox: {
         flexDirection:'row',
         alignItems: 'center',
-        marginTop: 16,
+        marginTop: 8,
         marginLeft: 0,
         marginRight: 0,
-        padding: 8,
+        padding: 4,
         backgroundColor: '#7532a8',
         borderRadius: 16
     },

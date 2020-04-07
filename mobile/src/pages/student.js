@@ -31,13 +31,26 @@ export default function SignIn() {
         <View style={styles.forms}>
             <Form ref={formRef} onSubmit={routes_newstudent}>
                 <Text style={styles.inputLabel}>Nome do Aluno</Text>
-                <Input style={styles.inputText} name="name_pers" type="email" />
+                <Input style={styles.inputText} name="name_pers" type="text" />
 
                 <Text style={styles.inputLabel}>Endereço</Text>       
-                <Input style={styles.inputText} name="address_pers" type="password" />        
+                <Input style={styles.inputText} name="address_pers" type="email" />
 
-                <Text style={styles.inputLabel}>e-mail</Text>       
-                <Input style={styles.inputText} name="email_pers" type="password" />        
+                <View style={styles.CidyContainer}>
+                    <View style={{width:'68%'}}>
+                        <Text style={styles.inputLabel}>Cidade</Text>       
+                        <Input style={[styles.inputText]} name="city_pers" type="text" />
+                    </View>
+
+                    <View style={{backgroundColor: '#fff', width: '30%', marginLeft: '2%'}}>
+                        <Text style={styles.inputLabel}>Cep</Text>       
+                        <Input style={styles.inputText} name="zipcode_pers" type="text" />
+                    </View>
+                </View>
+
+
+
+
 
 
                 <Button title="Gravar" onPress={() => formRef.current.submitForm()} />

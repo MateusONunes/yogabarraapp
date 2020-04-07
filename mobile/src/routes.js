@@ -16,6 +16,7 @@ import Login from './pages/Login'
 import Initial from './pages/initial'
 import Classprice from './pages/classprice'
 import Student from './pages/student'
+import Test from './pages/Test'
 
 export default function Routes() {
     return (
@@ -24,6 +25,7 @@ export default function Routes() {
                     <AppStack.Screen name="Login" component={Login} />
                     <AppStack.Screen name="Student" component={Student} />
                     <AppStack.Screen name="Initial" component={Initial} />
+                    <AppStack.Screen name="Test" component={Test} />
                     <AppStack.Screen name="Classprice" component={Classprice} />
                 </AppStack.Navigator>
             </NavigationContainer>

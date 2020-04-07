@@ -10,20 +10,15 @@ import img from '../../assets/splash.png'
 export default function Initial() {
     const navigation = useNavigation();
 
-    function navigateToLogin() {
-        navigation.navigate('login');
+    function navigateTo(RouteName) {
+        navigation.navigate(RouteName);
     }
 
-    function navigateTostudent() {
-        navigation.navigate('Student');
-    }
-      
-    
     return (
       <View style={styles.container}>
         <Image source= {img} />
 
-        <TouchableOpacity style={styles.enterbox} onPress={() => navigateTostudent()}>
+        <TouchableOpacity style={styles.enterbox} onPress={() => navigateTo("Student")}>
             <Text style={styles.defaulttext}>Cadastrar Aluno</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.enterbox}>
@@ -36,7 +31,11 @@ export default function Initial() {
             <Text style={styles.defaulttext}>Presenças</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.enterbox} onPress={() => navigateToLogin()}>
+        <TouchableOpacity style={styles.enterbox} onPress={() => navigateTo("Test")}>
+            <Text style={styles.defaulttext}>Testes</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.enterbox} onPress={() => navigateTo("Login")}>
             <Text style={styles.defaulttext}>Voltar</Text>
         </TouchableOpacity>
 

@@ -11,6 +11,7 @@ export default StyleSheet.create({
     },
     inputLabel: {
         marginTop: 8
+        
 
 
     },
@@ -18,6 +19,13 @@ export default StyleSheet.create({
         paddingTop: 16,
         height: 250,
         backgroundColor: '#c0b0f7'
+    },
+    CidyContainer:{
+        flex:1,
+        flexDirection: 'row',
+        alignContent: 'space-between',
+        marginTop: 8,
+        height:80
     }
 
 })
