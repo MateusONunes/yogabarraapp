@@ -1,0 +1,2 @@
+Componente Funcional                => export default function Student() {return()}
+Componente do tipo class (defazado) => export default class App extends React.Component { render{return()})
