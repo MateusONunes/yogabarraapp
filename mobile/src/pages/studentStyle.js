@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native'
-import Constants from 'expo-constants'
 
 export default StyleSheet.create({
     inputText:{
@@ -11,21 +10,15 @@ export default StyleSheet.create({
     },
     inputLabel: {
         marginTop: 8
-        
-
-
     },
     forms:{
         paddingTop: 16,
-        height: 250,
         backgroundColor: '#c0b0f7'
     },
     CidyContainer:{
-        flex:1,
+        display: 'flex',
         flexDirection: 'row',
-        alignContent: 'space-between',
-        marginTop: 8,
-        height:80
+        alignContent: 'space-between'
     }
 
 })

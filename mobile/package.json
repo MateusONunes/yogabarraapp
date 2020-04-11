@@ -20,10 +20,15 @@
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.0.tar.gz",
     "react-native-gesture-handler": "^1.6.1",
+    "react-native-masked-input-text": "^1.0.11",
+    "react-native-masked-text": "^1.13.0",
+    "react-native-material-textfield": "^0.16.1",
     "react-native-reanimated": "^1.7.1",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.4.0",
-    "react-native-web": "~0.11.7"
+    "react-native-text-input-mask": "^2.0.0",
+    "react-native-web": "~0.11.7",
+    "react-text-mask": "^5.4.3"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
