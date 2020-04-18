@@ -16,12 +16,13 @@ create table person_pers
 	zipcode_pers varchar(15),
 	cpf_pers varchar(15),
 	rg_pers varchar(15),
-	city_pers varchar(50),
 	phonewhats_pers varchar(20),
 	phone2_pers varchar(20),
 	phone3_pers varchar(20),
 	email_pers varchar(60),
 	fisicajuridica_pers char(1),
+	login_pers varchar(60),
+	password_pers varchar(200),
 	comments_pers text
 );
 
