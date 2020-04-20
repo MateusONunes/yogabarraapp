@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+//import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { View, Image, Text, TouchableOpacity } from 'react-native'
 
 import styles from './LoginStyle'
@@ -11,7 +11,7 @@ export default function Initial() {
     const navigation = useNavigation();
 
     function navigateToDetail() {
-        navigation.navigate('Initial');
+        navigation.navigate('Student');
       }
     
     return (
@@ -21,10 +21,9 @@ export default function Initial() {
 
         <TouchableOpacity 
               style={styles.enterbox} 
-              onPress={() => navigateToDetail()}
+              onPress={() => navigation.navigate('Student')}
         >
             <Text style={styles.defaulttext}>Entrar</Text>
-            <MaterialCommunityIcons name= "tablet-android" size={32} color = "#ff570f" />
         </TouchableOpacity>
       </View>
   

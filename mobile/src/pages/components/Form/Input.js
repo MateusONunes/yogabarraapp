@@ -2,7 +2,8 @@ import React, { useRef, useEffect } from 'react';
 import { Text, TextInput } from 'react-native';
 import { useField } from '@unform/core';
 
-function Input({ name, label, ...rest }) {
+//function Input({ name, label, ...rest }) {
+const Input = ({ name, label, ...rest }) => {
   const inputRef = useRef(null);
   const { fieldName, registerField, defaultValue = '', error } = useField(name);
 
