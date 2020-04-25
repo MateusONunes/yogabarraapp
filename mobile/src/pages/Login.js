@@ -10,10 +10,6 @@ export default function Initial() {
 
     const navigation = useNavigation();
 
-    function navigateToDetail() {
-        navigation.navigate('Student');
-      }
-    
     return (
       <View style={styles.container}>
         <Image source= {img} />
@@ -21,7 +17,7 @@ export default function Initial() {
 
         <TouchableOpacity 
               style={styles.enterbox} 
-              onPress={() => navigation.navigate('Student')}
+              onPress={() => navigation.navigate('Initial')}
         >
             <Text style={styles.defaulttext}>Entrar</Text>
         </TouchableOpacity>

@@ -6,7 +6,12 @@ import api from '../services/api';
 import img from '../../assets/splash.png';
 
 export default function Incidents() {
-  console.log('XX')
+  const navigation = useNavigation();
+
+  function navigateToDetail(code_pers) {
+    navigation.navigate('Student', { code_pers });
+  }
+  
 
   const [pers_pers, setPers_pers] = useState([]);
   const [total, setTotal] = useState(0);
@@ -14,22 +19,27 @@ export default function Incidents() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  const navigation = useNavigation();
 
   async function loadPers_pers() {
+    console.log('fff')
     if (loading) {
       return;
     }
+
+    console.log('g')
 
     if (total > 0 && pers_pers.length === total) {
       return;
     }
 
     setLoading(true);
+    console.log('h')
 
     const response = await api.get('routesquerystudent', {
       params: { page }
     });
+
+    console.log('i')
 
     setPers_pers([...pers_pers, ...response.data]);
     setTotal(response.headers['x-total-count']);
@@ -66,14 +76,16 @@ export default function Incidents() {
             <Text>{pers_pers.name_pers}</Text>
             <Text>{pers_pers.address_pers}</Text>
 
-              <TouchableOpacity 
-                style={styles.detailsButton} 
-                onPress={() => navigate.navigation('student', { navigation })}
-              >
-              </TouchableOpacity>
             </View>
             <View style= {styles.detailPerson}>
-              <Text style= {styles.textPerson}>Ver</Text>
+              <TouchableOpacity 
+                  style={styles.detailsButton} 
+                  onPress={() => navigation.navigate('Student', { code_pers: pers_pers.code_pers })}
+              >
+                <Text style= {styles.textPerson}>Ver</Text>
+              </TouchableOpacity>
+
+
             </View>
           </View>
         )}

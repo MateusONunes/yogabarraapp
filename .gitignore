@@ -4,3 +4,5 @@
 /mobile/package-lock.json
 /mobile/yarn-error.log
 /backend/package-lock.json
+/mobile/android
+/mobile/ios

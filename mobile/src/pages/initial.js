@@ -5,7 +5,7 @@ import {View, Image, Text, TouchableOpacity} from 'react-native';
 import styles from './initialstyle';
 import img from '../../assets/splash.png';
 
-export default function Initial() {
+export default function Initial(p) {
 
   const navigation = useNavigation();
 
@@ -15,10 +15,19 @@ export default function Initial() {
 
       <TouchableOpacity
         style={styles.enterbox}
-        onPress= {() => navigation.navigate("Student")}
+        onPress= {() => navigation.navigate("Student", {code_pers: 0})}
       >
         <Text style={styles.defaulttext}>Cadastrar Aluno</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.enterbox}
+        onPress= {() => navigation.navigate("StudentList")}
+      >
+        <Text style={styles.defaulttext}>Listar Alunos</Text>
+      </TouchableOpacity>
+
+
       <TouchableOpacity style={styles.enterbox}>
         <Text style={styles.defaulttext}>Aulas e Preços</Text>
       </TouchableOpacity>
