@@ -56,12 +56,9 @@ export default function Incidents() {
       <Image source={img} />
       <View style={styles.header}>
         <Text style={styles.headerText}>
-          Total de <Text style={styles.headerTextBold}>{total} Estudantes</Text>.
+          Lista de Alunos
         </Text>
       </View>
-
-      <Text style={styles.title}>Bem-vindo!</Text>
-      <Text style={styles.description}>Escolha um dos casos abaixo e salve o dia.</Text>
 
       <FlatList
         data={pers_pers}
@@ -97,6 +94,16 @@ export default function Incidents() {
 const styles = StyleSheet.create({
   flatlist: {
     marginTop: 32,  
+  },
+  header: {
+    height: 20
+    
+  },
+  headerText: {
+    textAlign: "center",
+    fontSize: 20,
+    paddingVertical: 10,
+    fontWeight: "bold"
   },
   containerflatlist0: {
     flex: 1, 

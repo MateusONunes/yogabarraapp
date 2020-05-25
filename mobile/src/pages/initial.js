@@ -4,6 +4,7 @@ import {View, Image, Text, TouchableOpacity} from 'react-native';
 
 import styles from './initialstyle';
 import img from '../../assets/splash.png';
+import api from '../services/api';
 
 export default function Initial(p) {
 
@@ -42,6 +43,12 @@ export default function Initial(p) {
         style={styles.enterbox}
         onPress={() => navigation.navigate('Test')}>
         <Text style={styles.defaulttext}>Testes</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.enterbox}
+        onPress={() => {const response = api.get('test')}}>
+        <Text style={styles.defaulttext}>Teste - Rota</Text>
       </TouchableOpacity>
 
       <TouchableOpacity

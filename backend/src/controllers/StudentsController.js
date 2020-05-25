@@ -3,20 +3,25 @@ const { date } = require('../lib/utils')
 
 module.exports = {
   async query(request, response) {
-    console.log('a')
+    console.log('a.1')
 
     const { page = 1, code_pers} = request.query;
+    console.log('a.2')
 
     const [count] = await connection('person_pers').count();
     
 //    connection('person_pers').where('code_pers', '17')
     console.log(code_pers)
+
+    console.log('a.3')
+
     const person_pers = await connection('person_pers')
       .limit(5)
       .offset((page - 1) * 5)
-      .where(function() {
-        if(code_pers){this.where('code_pers', code_pers)}
-      })
+//      .where(function() {
+//        if(code_pers){this.where('code_pers', code_pers)}
+      //})
+//      .where('code_pers', '15')
       .select([
         'code_pers',
         'name_pers',
@@ -34,6 +39,8 @@ module.exports = {
       ]);
 
     response.header('X-Total-Count', count['count(*)']);
+    console.log('a.4')
+    console.log(person_pers)
 
     return response.json(person_pers);
   },

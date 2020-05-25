@@ -1,0 +1,37 @@
+drop table if exists class_clas;
+drop table if exists course_cors;
+
+create table course_cors(
+	code_cors smallint,
+	name_cors varchar(40),
+	description_cors text);
+
+INSERT INTO course_cors(code_cors, name_cors) values (1, 'Hatha Yoga');
+INSERT INTO course_cors(code_cors, name_cors) values (2, 'Ashtanga Vinyasa Yoga');
+INSERT INTO course_cors(code_cors, name_cors) values (3, 'Meditação');
+INSERT INTO course_cors(code_cors, name_cors) values (4, 'Tai Chi Chuan');
+
+create table class_clas(
+	code_clas smallint,
+	name_clas varchar(40),
+	code_cors smallint,
+	timestart_clas varchar(5),
+	timeend_clas varchar(5),
+	frequency_clas varchar(10),
+	frequencyorder_clas smallint,
+	description_clas text);
+
+insert into class_clas(code_clas, code_cors, timestart_clas, timeend_clas, frequency_clas, frequencyorder_clas) values (1, 1, '19:15', '20:15', 'Terça', 2);
+insert into class_clas(code_clas, code_cors, timestart_clas, timeend_clas, frequency_clas, frequencyorder_clas) values (2, 1, '08:00', '09:00', 'Quinta', 4);
+insert into class_clas(code_clas, code_cors, timestart_clas, timeend_clas, frequency_clas, frequencyorder_clas) values (3, 1, '19:15', '20:15', 'Quinta', 4);
+
+insert into class_clas(code_clas, code_cors, timestart_clas, timeend_clas, frequency_clas, frequencyorder_clas) values (4, 2, '18:30', '19:30', 'Segunda', 1);
+insert into class_clas(code_clas, code_cors, timestart_clas, timeend_clas, frequency_clas, frequencyorder_clas) values (5, 2, '19:15', '21:00', 'Quarta', 3);
+
+
+/*
+select cors.name_cors, clas.frequency_clas, clas.timestart_clas, clas.timeend_clas, *
+  from class_clas clas left join course_cors cors on clas.code_cors = cors.code_cors
+ order by cors.name_cors, clas.frequencyorder_clas, clas.timestart_clas
+*/
+

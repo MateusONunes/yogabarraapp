@@ -19,6 +19,23 @@ module.exports = {
     }
   },
 
+  aws: {
+    client: 'pg',
+    connection: {
+      host : 'yogadabarra.csqsrowcf1db.sa-east-1.rds.amazonaws.com',
+      user : 'postgres',
+      password : 'yogabarra',
+      database : 'postgres',
+      charset: 'utf8'
+    },
+    migrations: {
+      directory: __dirname + '/knex/migrations',
+    },
+    seeds: {
+      directory: __dirname + '/knex/seeds'
+    }
+  },
+
   development2: {
     client: 'postgresql',
     connection: {
