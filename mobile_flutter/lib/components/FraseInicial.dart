@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 class FraseInicial extends StatelessWidget {
   
+  final String FraseGerada;
   final void Function() FraseGeradaOnTap;
   
   FraseInicial(this.FraseGerada, this.FraseGeradaOnTap);
@@ -29,7 +30,10 @@ class FraseInicial extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
       ),      
-     
+      
+      
+      
+      
       
     );
   }
