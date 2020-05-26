@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './screens/initial.dart';
 import 'dart:math';
+import './components/FraseInicial.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -23,7 +24,9 @@ class YogaBarraAppState extends State<YogaBarraApp> {
 
   final Frases = ['Pratique Yoga, Faz bem para sua vida',
                   'Viva e Deixe Viver',
-                  'Viva o Presente'];
+                  'Viva o Presente',
+                  'Sou Luz',
+                  ''];
 
   var FraseGerada = 'Pratique Yoga, Faz bem para sua vida';
 
@@ -72,7 +75,7 @@ class YogaBarraAppState extends State<YogaBarraApp> {
               borderRadius: BorderRadius.circular(15),
               //splashColor: Theme.of(context).#FFFFFF,
 
-              child: Text(FraseGerada),
+              child: FraseInicial(FraseGerada),
             ),
 
 
