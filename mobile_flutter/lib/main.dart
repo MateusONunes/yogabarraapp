@@ -70,14 +70,7 @@ class YogaBarraAppState extends State<YogaBarraApp> {
               child: Text('Sair'),
               onPressed: () {print('sair');},
             ),
-            InkWell( // 172. Navegando para uma Nova Tela-04:17-https://www.udemy.com/course/curso-flutter/learn/lecture/18383450#questions
-              onTap: () => NovaFrase(),
-              borderRadius: BorderRadius.circular(15),
-              //splashColor: Theme.of(context).#FFFFFF,
-
-              child: FraseInicial(FraseGerada),
-            ),
-
+            FraseInicial(FraseGerada, NovaFrase),
 
 
 /*            RaisedButton(
