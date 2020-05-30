@@ -1,86 +1,62 @@
+/**
+ * app_drawer.dart          => Menu Lateral da aplicação
+ * products_screen.dart     => Grid de exibição dos produtos
+ * product_form_screen.dart => Formulário de Cadastro de Produtos (Alunos)
+ */
 import 'package:flutter/material.dart';
-import './screens/initial.dart';
-import 'dart:math';
-import './components/FraseInicial.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: YogaBarraApp(),
-  ));
-}
+import './utils/app_routes.dart';
 
+import './views/products_overview_screen.dart';
+import './views/product_detail_screen.dart';
+import './views/cart_screen.dart';
+import './views/orders_screen.dart';
+import './views/products_screen.dart';
+import './views/product_form_screen.dart';
+import './views/students_screen.dart';
+import './views/students_form.dart';
 
-class YogaBarraApp extends StatefulWidget {
-  // This widget is the root of your application.
-  YogaBarraAppState createState(){
-    return YogaBarraAppState();
-  }
-}
+import './providers/products.dart';
+import './providers/cart.dart';
+import './providers/orders.dart';
 
-class YogaBarraAppState extends State<YogaBarraApp> {
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
   @override
-
-  var CompanyName = 'Yoga da Barra';
-
-  final Frases = ['Pratique Yoga, Faz bem para sua vida',
-                  'Viva e Deixe Viver',
-                  'Viva o Presente',
-                  'Sou Luz',
-                  ''];
-
-  var FraseGerada = 'Pratique Yoga, Faz bem para sua vida';
-
-  void NovaFrase(){
-    var Sorteio = Random().nextInt(Frases.length);
-
-    setState((){
-      FraseGerada = Frases[Sorteio];
-    });
-  }
-
-  void Login(BuildContext context){
-    Navigator.push(context,  //172. Navegando para uma Nova Tela - 07:30 - https://www.udemy.com/course/curso-flutter/learn/lecture/18383450#questions
-                   MaterialPageRoute(
-                   builder: (context) => Initial()
-    ));
-  }
-
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(CompanyName)
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => new Products(),
         ),
-        body: Column(
-          children: <Widget>[
-            Text(CompanyName),
-            RaisedButton(
-              child: Text('Entrar'),
-              onPressed: () => Login(context)
-                /*
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => TelaSecundaria()
-                    ),
-                );
-                */
-            ),
-            RaisedButton(
-              child: Text('Sair'),
-              onPressed: () {print('sair');},
-            ),
-            FraseInicial(FraseGerada, NovaFrase),
-
-
-/*            RaisedButton(
-              child: Text('Sobre'),
-              onPressed: () => print('Sobre'),
-            )
-*/            
-          ],
-        )
-      )
+        ChangeNotifierProvider(
+          create: (_) => new Cart(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => new Orders(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Minha Loja',
+        theme: ThemeData(
+          primarySwatch: Colors.purple,
+          accentColor: Colors.deepOrange,
+          fontFamily: 'Lato',
+        ),
+        // home: ProductOverviewScreen(),
+        routes: {
+          AppRoutes.HOME: (ctx) => ProductOverviewScreen(),
+          AppRoutes.PRODUCT_DETAIL: (ctx) => ProductDetailScreen(),
+          AppRoutes.CART: (ctx) => CartScreen(),
+          AppRoutes.ORDERS: (ctx) => OrdersScreen(),
+          AppRoutes.PRODUCTS: (ctx) => ProductsScreen(),
+          AppRoutes.PRODUCT_FORM: (ctx) => ProductFormScreen(),
+          AppRoutes.STUDENTS: (ctx) => StundentScreen(),
+          AppRoutes.STUDENTS_FORM: (ctx) => Students_form(),
+        },
+      ),
     );
   }
 }
