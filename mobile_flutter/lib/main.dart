@@ -1,8 +1,3 @@
-/**
- * app_drawer.dart          => Menu Lateral da aplicação
- * products_screen.dart     => Grid de exibição dos produtos
- * product_form_screen.dart => Formulário de Cadastro de Produtos (Alunos)
- */
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,8 +9,6 @@ import './views/cart_screen.dart';
 import './views/orders_screen.dart';
 import './views/products_screen.dart';
 import './views/product_form_screen.dart';
-import './views/students_screen.dart';
-import './views/students_form.dart';
 
 import './providers/products.dart';
 import './providers/cart.dart';
@@ -53,8 +46,6 @@ class MyApp extends StatelessWidget {
           AppRoutes.ORDERS: (ctx) => OrdersScreen(),
           AppRoutes.PRODUCTS: (ctx) => ProductsScreen(),
           AppRoutes.PRODUCT_FORM: (ctx) => ProductFormScreen(),
-          AppRoutes.STUDENTS: (ctx) => StundentScreen(),
-          AppRoutes.STUDENTS_FORM: (ctx) => Students_form(),
         },
       ),
     );

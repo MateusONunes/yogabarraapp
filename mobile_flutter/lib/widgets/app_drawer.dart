@@ -1,7 +1,3 @@
-/*
-Menu lateral
-*/
-
 import 'package:flutter/material.dart';
 import '../utils/app_routes.dart';
 
@@ -12,7 +8,7 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: <Widget>[
           AppBar(
-            title: Text('Navegação'),
+            title: Text('Bem vindo Usuário!'),
             automaticallyImplyLeading: false,
           ),
           Divider(),
@@ -42,15 +38,6 @@ class AppDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pushReplacementNamed(
                 AppRoutes.PRODUCTS,
-              );
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.edit),
-            title: Text('Alunos'),
-            onTap: () {
-              Navigator.of(context).pushReplacementNamed(
-                AppRoutes.STUDENTS,
               );
             },
           ),
