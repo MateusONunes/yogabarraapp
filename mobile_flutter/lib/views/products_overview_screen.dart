@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/providers/person_perss.dart';
 import 'package:shop/providers/products.dart';
 import '../widgets/product_grid.dart';
 import '../widgets/badge.dart';
@@ -24,7 +25,12 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<Products>(context, listen: false).loadProducts().then((_) {
+
+    Provider.of<Products>(context, listen: false).loadProducts()
+    .then((_) {
+      Provider.of<Person_perss>(context, listen: false).loadStudents();
+    })
+    .then((_) {
       setState(() {
         _isLoading = false;
       });

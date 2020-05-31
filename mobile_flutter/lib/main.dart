@@ -1,5 +1,12 @@
+/**
+ * app_drawer.dart          => Menu Lateral da aplicação
+ * products_screen.dart     => Grid de exibição dos produtos
+ * product_form_screen.dart => Formulário de Cadastro de Produtos (Alunos)
+ */
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/providers/person_perss.dart';
 
 import './utils/app_routes.dart';
 
@@ -13,6 +20,8 @@ import './views/product_form_screen.dart';
 import './providers/products.dart';
 import './providers/cart.dart';
 import './providers/orders.dart';
+import './views/students_screen.dart';
+import './views/students_form.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,6 +32,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => new Products(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => new Person_perss(),
         ),
         ChangeNotifierProvider(
           create: (_) => new Cart(),
@@ -46,6 +58,8 @@ class MyApp extends StatelessWidget {
           AppRoutes.ORDERS: (ctx) => OrdersScreen(),
           AppRoutes.PRODUCTS: (ctx) => ProductsScreen(),
           AppRoutes.PRODUCT_FORM: (ctx) => ProductFormScreen(),
+          AppRoutes.STUDENTS: (ctx) => StudentsScreen(),
+          AppRoutes.STUDENTS_FORM: (ctx) => StudentsFormScreen(),
         },
       ),
     );

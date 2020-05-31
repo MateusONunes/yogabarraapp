@@ -1,3 +1,7 @@
+/*
+Menu lateral
+*/
+
 import 'package:flutter/material.dart';
 import '../utils/app_routes.dart';
 
@@ -41,6 +45,15 @@ class AppDrawer extends StatelessWidget {
               );
             },
           ),
+          ListTile(
+            leading: Icon(Icons.edit),
+            title: Text('Alunos'),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(
+                AppRoutes.STUDENTS,
+              );
+            },
+          ),          
         ],
       ),
     );

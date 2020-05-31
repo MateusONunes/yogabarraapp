@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class Person_pers with ChangeNotifier {
+  final String id;
   final String code_pers; 
   final String name_pers;
   final String birth_pers;
@@ -16,7 +17,8 @@ class Person_pers with ChangeNotifier {
   final String login_pers;
 
   Person_pers({
-    this.code_pers,
+    final String this.id,
+    @required this.code_pers,
     @required this.name_pers,
     @required this.birth_pers,
     @required this.address_pers,

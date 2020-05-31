@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/exceptions/http_exception.dart';
 
-import '../providers/product.dart';
-import '../providers/products.dart';
+import '../providers/person_pers.dart';
+import '../providers/person_perss.dart';
 import '../utils/app_routes.dart';
 
 class StudentItem extends StatelessWidget {
-  final Product product;
+  final Person_pers person_pers;
 
-  StudentItem(this.product);
+  StudentItem(this.person_pers);
 
   @override
   Widget build(BuildContext context) {
+    final scaffold = Scaffold.of(context);
     return ListTile(
-      title: Text(product.title),
+      title: Text(person_pers.name_pers),
       trailing: Container(
         width: 100,
         child: Row(
@@ -23,7 +25,7 @@ class StudentItem extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               onPressed: () {
                 Navigator.of(context)
-                    .pushNamed(AppRoutes.STUDENTS_FORM, arguments: product);
+                    .pushNamed(AppRoutes.STUDENTS_FORM, arguments: person_pers);
               },
             ),
             IconButton(
@@ -46,10 +48,18 @@ class StudentItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                ).then((value) {
+                ).then((value) async {
                   if (value) {
-                    Provider.of<Products>(context, listen: false)
-                        .deleteProduct(product.id);
+                    try {
+                      await Provider.of<Person_perss>(context, listen: false)
+                          .deletePerson(person_pers.id);
+                    } on HttpException catch (error) {
+                      scaffold.showSnackBar(
+                        SnackBar(
+                          content: Text(error.toString()),
+                        ),
+                      );
+                    }
                   }
                 });
               },

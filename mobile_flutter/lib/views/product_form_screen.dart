@@ -1,3 +1,7 @@
+/**
+ * Formulário de Cadastro de Produtos
+ */
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
