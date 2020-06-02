@@ -4,6 +4,7 @@ class Person_pers with ChangeNotifier {
   final String id;
   final String code_pers; 
   final String name_pers;
+  final String nickname_pers;
   final String birth_pers;
   final String address_pers;
   final String city_pers;
@@ -13,13 +14,14 @@ class Person_pers with ChangeNotifier {
   final String phonewhats_pers;
   final String email_pers;
   final String fisicajuridica_pers;
-  final String comments_per;
+  final String comments_pers;
   final String login_pers;
 
   Person_pers({
     final String this.id,
     @required this.code_pers,
     @required this.name_pers,
+    @required this.nickname_pers,
     @required this.birth_pers,
     @required this.address_pers,
     @required this.city_pers,
@@ -29,7 +31,7 @@ class Person_pers with ChangeNotifier {
     @required this.phonewhats_pers,
     @required this.email_pers,
     @required this.fisicajuridica_pers,
-    @required this.comments_per,
+    @required this.comments_pers,
     @required this.login_pers,
   });
 }

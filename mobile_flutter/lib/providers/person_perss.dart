@@ -27,7 +27,15 @@ class Person_perss with ChangeNotifier {
           id: person_persId,
           code_pers: person_persData['Code_pers'],
           name_pers: person_persData['name_pers'],
-          address_pers: person_persData['address_pers']
+          nickname_pers: person_persData['nickname_pers'],
+          address_pers: person_persData['address_pers'],
+          city_pers: person_persData['city_pers'],
+          cpf_pers: person_persData['cpf_pers'],
+          rg_pers: person_persData['rg_pers'],
+          birth_pers: person_persData['birth_pers'],
+          phonewhats_pers: person_persData['phonewhats_pers'],
+          email_pers: person_persData['email_pers'],
+          comments_pers: person_persData['comments_pers']
         ));
       });
       notifyListeners();
@@ -40,14 +48,30 @@ class Person_perss with ChangeNotifier {
       "$_baseUrl.json",
       body: json.encode({
         'name_pers': newPerson_pers.name_pers,
-        'address_pers': newPerson_pers.address_pers
+        'nickname_pers': newPerson_pers.name_pers,
+        'address_pers': newPerson_pers.address_pers,
+        'city_pers': newPerson_pers.city_pers,
+        'cpf_pers': newPerson_pers.cpf_pers,
+        'rg_pers': newPerson_pers.rg_pers,
+        'birth_pers': newPerson_pers.birth_pers,
+        'phonewhats_pers': newPerson_pers.phonewhats_pers,
+        'email_pers': newPerson_pers.email_pers,
+        'comments_pers': newPerson_pers.comments_pers
       }),
     );
 
     _items.add(Person_pers(
       id: json.decode(response.body)['name'],
       name_pers: newPerson_pers.name_pers,
-      address_pers: newPerson_pers.address_pers
+      nickname_pers: newPerson_pers.nickname_pers,
+      address_pers: newPerson_pers.address_pers,
+      city_pers: newPerson_pers.city_pers,
+      cpf_pers: newPerson_pers.cpf_pers,
+      rg_pers: newPerson_pers.rg_pers,
+      birth_pers: newPerson_pers.birth_pers,
+      phonewhats_pers: newPerson_pers.phonewhats_pers,
+      email_pers: newPerson_pers.email_pers,
+      comments_pers: newPerson_pers.comments_pers,
     ));
     notifyListeners();
   }
@@ -63,7 +87,15 @@ class Person_perss with ChangeNotifier {
         "$_baseUrl/${person_pers.id}.json",
         body: json.encode({
           'name_pers': person_pers.name_pers,
+          'nickname_pers': person_pers.nickname_pers,
           'address_pers': person_pers.address_pers,
+          'city_pers': person_pers.city_pers,
+          'cpf_pers': person_pers.cpf_pers,
+          'rg_pers': person_pers.rg_pers,
+          'birth_pers': person_pers.birth_pers,
+          'phonewhats_pers': person_pers.phonewhats_pers,
+          'email_pers': person_pers.email_pers,
+          'comments_pers': person_pers.comments_pers
         }),
       );
       _items[index] = person_pers;
