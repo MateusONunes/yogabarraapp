@@ -12,39 +12,10 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: <Widget>[
           AppBar(
-            title: Text('Bem vindo Usuário!'),
+            title: Text('Escolha uma Opção'),
             automaticallyImplyLeading: false,
           ),
           Divider(),
-          ListTile(
-            leading: Icon(Icons.shop),
-            title: Text('Loja'),
-            onTap: () {
-              Navigator.of(context).pushReplacementNamed(
-                AppRoutes.HOME,
-              );
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.payment),
-            title: Text('Pedidos'),
-            onTap: () {
-              Navigator.of(context).pushReplacementNamed(
-                AppRoutes.ORDERS,
-              );
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.edit),
-            title: Text('Gerenciar Produtos'),
-            onTap: () {
-              Navigator.of(context).pushReplacementNamed(
-                AppRoutes.PRODUCTS,
-              );
-            },
-          ),
           ListTile(
             leading: Icon(Icons.edit),
             title: Text('Alunos'),
@@ -54,6 +25,37 @@ class AppDrawer extends StatelessWidget {
               );
             },
           ),          
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.edit),
+            title: Text('Aulas e Preços'),
+            /*onTap: () {
+              Navigator.of(context).pushReplacementNamed(
+                AppRoutes.STUDENTS,
+              );
+            },*/
+          ),          
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.edit),
+            title: Text('Meus Pagamentos'),
+            /*onTap: () {
+              Navigator.of(context).pushReplacementNamed(
+                AppRoutes.STUDENTS,
+              );
+            },*/
+          ),          
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.edit),
+            title: Text('Presenças'),
+            /*onTap: () {
+              Navigator.of(context).pushReplacementNamed(
+                AppRoutes.STUDENTS,
+              );
+            },*/
+          ),          
+          
         ],
       ),
     );

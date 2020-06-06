@@ -180,16 +180,6 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
                               FocusScope.of(context).requestFocus(_nickname_persFocusNode);
                             },
                             onSaved: (value) => _formData['nickname_pers'] = value,
-                            validator: (value) {
-                              bool isEmpty = value.trim().isEmpty;
-                              bool isInvalid = value.trim().length < 3;
-
-                              if (isEmpty || isInvalid) {
-                                return 'Informe um Título válido com no mínimo 3 caracteres!';
-                              }
-
-                              return null;
-                            },
                           ),
                         ),
                         Flexible(

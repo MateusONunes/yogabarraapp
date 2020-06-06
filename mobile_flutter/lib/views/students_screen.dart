@@ -10,7 +10,25 @@ import '../providers/person_perss.dart';
 import '../utils/app_routes.dart';
 import '../widgets/student_item.dart';
 
-class StudentsScreen extends StatelessWidget {
+class StudentsScreen extends StatefulWidget{
+  @override
+  _StudentsScreenState createState() => _StudentsScreenState();
+}
+
+class _StudentsScreenState extends State<StudentsScreen> {
+
+  bool _isLoading = true;
+
+  void initState() {
+    super.initState();
+
+    Provider.of<Person_perss>(context, listen: false).loadStudents()
+    .then((_) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
 
   Future<void> _refreshStudents(BuildContext context) {
     return Provider.of<Person_perss>(context, listen: false).loadStudents();
