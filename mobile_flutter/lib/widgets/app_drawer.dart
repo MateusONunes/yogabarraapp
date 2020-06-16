@@ -4,10 +4,15 @@ Menu lateral
 
 import 'package:flutter/material.dart';
 import '../utils/app_routes.dart';
+import '../providers/auth.dart';
+import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    final Auth auth = Provider.of(context, listen: false);
+
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -49,11 +54,21 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.edit),
             title: Text('Presenças'),
-            /*onTap: () {
-              Navigator.of(context).pushReplacementNamed(
-                AppRoutes.STUDENTS,
-              );
-            },*/
+            // onTap: () {
+            //   print('auth.token' + auth.token);
+            //   print('auth.userId' + auth.userId);
+            // }
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.edit),
+            title: Text('Sair'),
+            onTap: () {
+              print('auth.token' + auth.token);
+              print('auth.userId' + auth.userId);
+              Provider.of<Auth>(context, listen: false).logout();
+            },
+
           ),          
           
         ],

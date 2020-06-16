@@ -10,6 +10,11 @@ class Person_perss with ChangeNotifier {
   final String _baseUrl = '${Constants.BASE_API_URL}/person_pers';
   List<Person_pers> _items = [];
 
+  String _token;
+  String _userId;
+
+  Person_perss([this._token, this._userId, this._items = const []]);
+
   List<Person_pers> get items => [..._items];
 
   int get itemsCount {
