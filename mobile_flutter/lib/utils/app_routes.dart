@@ -3,4 +3,5 @@ class AppRoutes {
   static const HOME = '/home';
   static const STUDENTS = '/students';
   static const STUDENTS_FORM = '/students-form';
+  static const TESTE = '/teste';
 }

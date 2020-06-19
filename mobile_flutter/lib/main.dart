@@ -13,6 +13,7 @@ import './utils/app_routes.dart';
 import './views/students_screen.dart';
 import './views/students_form.dart';
 import './views/initial.dart';
+import './views/teste.dart';
 import './providers/auth.dart';
 
 void main() {
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.HOME: (ctx) => Initial(),
           AppRoutes.STUDENTS: (ctx) => StudentsScreen(),
           AppRoutes.STUDENTS_FORM: (ctx) => StudentsFormScreen(),
+          AppRoutes.TESTE: (ctx) => Teste(),
         },
       ),
     );

@@ -62,13 +62,22 @@ class AppDrawer extends StatelessWidget {
           Divider(),
           ListTile(
             leading: Icon(Icons.edit),
+            title: Text('Teste'),
+            onTap: () {
+              Navigator.of(context).pushNamed(AppRoutes.TESTE);
+
+              //Navigator.of(context).pushReplacementNamed(AppRoutes.TESTE);
+            },
+          ),  
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.edit),
             title: Text('Sair'),
             onTap: () {
               print('auth.token' + auth.token);
               print('auth.userId' + auth.userId);
               Provider.of<Auth>(context, listen: false).logout();
             },
-
           ),          
           
         ],
