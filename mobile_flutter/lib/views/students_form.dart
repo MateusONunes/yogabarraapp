@@ -97,11 +97,7 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
     final person_perss = Provider.of<Person_perss>(context, listen: false);
 
     try {
-      if (_formData['id'] == null) {
-        await person_perss.addPerson_pers(person_pers);
-      } else {
-        await person_perss.updatePerson_pers(person_pers);
-      }
+      await person_perss.addPerson_pers(person_pers);
       Navigator.of(context).pop();
     } catch (error) {
       await showDialog<Null>(

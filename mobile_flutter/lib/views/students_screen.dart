@@ -17,30 +17,46 @@ class StudentsScreen extends StatefulWidget{
 
 class _StudentsScreenState extends State<StudentsScreen> {
 
-  bool _isLoading = true;
+  int _totalItens;
 
   void initState() {
     super.initState();
 
-    Provider.of<Person_perss>(context, listen: false).loadStudents()
+    _loadStudents(context);
+  }
+
+  Future<void> _refreshStudents(BuildContext context) {
+    final person_persData = Provider.of<Person_perss>(context, listen: false);
+
+    return person_persData.reloadStudents()
     .then((_) {
-      setState(() {
-        _isLoading = false;
+      setState((){
+        _totalItens = person_persData.itemsCount;
       });
     });
   }
 
-  Future<void> _refreshStudents(BuildContext context) {
-    return Provider.of<Person_perss>(context, listen: false).loadStudents();
+  Future<Null> _loadStudents(BuildContext context) async {
+    final person_persData = Provider.of<Person_perss>(context, listen: false);
+
+    person_persData.loadStudents()
+      .then((_) {
+        if (_totalItens != person_persData.itemsCount){
+          setState((){
+            _totalItens = person_persData.itemsCount;
+          });
+        }
+      });
   }
 
   @override
   Widget build(BuildContext context) {
     final person_persData = Provider.of<Person_perss>(context);
     final person_pers = person_persData.items;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Gerenciar Alunos'),
+        title: Text('Gerenciar Alunos - ${_totalItens}'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
@@ -59,12 +75,19 @@ class _StudentsScreenState extends State<StudentsScreen> {
           padding: EdgeInsets.all(8),
           child: ListView.builder(
             itemCount: person_persData.itemsCount,
-            itemBuilder: (ctx, i) => Column(
-              children: <Widget>[
+            itemBuilder: (ctx, i) {
+
+              if (i >= person_persData.itemsCount-1){
+                _loadStudents(context);
+              }
+
+              return Column(
+                children: <Widget>[
                 StudentItem(person_pers[i]),
                 Divider(),
               ],
-            ),
+              );
+            }
           ),
         ),
       ),

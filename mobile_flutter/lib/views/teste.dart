@@ -105,27 +105,53 @@ class _TesteState extends State<_Teste> {
     }
   }
 
-  void firebase_Delall(){
-    Firestore.instance.collection('infinitylist_test').getDocuments().then((snapshot) {
+  void firebase_DelAll() async{
+    Firestore.instance.collection('person_pers').getDocuments().then((snapshot) {
       for (DocumentSnapshot ds in snapshot.documents){
         ds.reference.delete();
       };
-    });
+    }).then((value) => Firestore.instance.collection("sequence").document('1').setData({"code_pers": 99})
+    );
   }
 
   void firebaseInsertBlock() async{
     // Firestore db = Firestore.instance;
     //await firebase_Delall();
+    int code_pers = 100;
+      
+    Firestore db = Firestore.instance;
+    QuerySnapshot querySnapshot = await db
+      .collection("sequence")
+      .getDocuments();
 
-    for(int i=100; i<=150; i++){
-      Firestore.instance.collection("infinitylist_test").document(i.toString()).setData(
+    for(DocumentSnapshot item in querySnapshot.documents) {//TODO - Tirar do Laço
+      var dados = item.data;
+      code_pers = dados['code_pers'];
+    }
+
+    for(int i=1; i<=151; i++){
+      // Firestore.instance.collection("infinitylist_test").document(i.toString()).setData(
+      //   {
+      //     "id": i,
+      //     "nome": "nome-$i",
+      //     "telefone": "telefone-$i"
+      //   }
+      // );
+
+      code_pers++;
+
+      Firestore.instance.collection("person_pers").document(code_pers.toString()).setData(
         {
-          "id": i,
-          "nome": "nome-$i",
-          "telefone": "telefone-$i"
+          "id": code_pers,
+          "code_pers": code_pers,
+          "name_pers": "Insert Automático - $code_pers",
+          "nickname_pers": "Apelido-$code_pers"
         }
       );
     }
+
+    Firestore.instance.collection("sequence").document('1').setData({"code_pers": code_pers});
+
   }
 
   @override
@@ -143,7 +169,7 @@ class _TesteState extends State<_Teste> {
           IconButton(
             icon: const Icon(Icons.remove),
             onPressed: () {
-              firebase_Delall();
+              firebase_DelAll();
             },
           ),
         ],

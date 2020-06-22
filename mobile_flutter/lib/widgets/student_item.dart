@@ -15,7 +15,7 @@ class StudentItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final scaffold = Scaffold.of(context);
     return ListTile(
-      title: Text(person_pers.name_pers),
+      title: Text('${person_pers.code_pers} - ' + person_pers.name_pers),
       trailing: Container(
         width: 100,
         child: Row(
