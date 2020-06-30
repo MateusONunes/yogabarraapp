@@ -74,8 +74,8 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.edit),
             title: Text('Sair'),
             onTap: () {
-              print('auth.token' + auth.token);
-              print('auth.userId' + auth.userId);
+              //print('auth.token' + auth.token);
+              //print('auth.userId' + auth.userId);
               Provider.of<Auth>(context, listen: false).logout();
             },
           ),          

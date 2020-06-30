@@ -76,7 +76,7 @@ class _TesteState extends State<_Teste> {
         .getDocuments();
     }
 
-    //
+    //192.168.0.11:5001/api/skip=$skip&take=$take
     //var response = await http.get('https://jsonplaceholder.typicode.com/todos');
     //var info = jsonDecode(response.body);
 
@@ -102,6 +102,7 @@ class _TesteState extends State<_Teste> {
       setState((){
         _totalItens = _listaTela.length;
       });
+      
     }
   }
 

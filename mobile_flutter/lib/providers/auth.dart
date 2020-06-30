@@ -6,12 +6,14 @@ import 'package:http/http.dart' as http;
 import 'package:shop/data/store.dart';
 import 'package:shop/exceptions/auth_exception.dart';
 
+enum AuthType {unlogged, email, googleAccount, faceAccount}
+
 class Auth with ChangeNotifier {
   String _userId;
   String _token;
   DateTime _expiryDate;
   Timer _logoutTimer;
-  String _authType; //1-Normal;2-gmail account-3-facebookaccount
+  AuthType _authType = AuthType.unlogged;
 
   bool get isAuth {
     return token != null;
@@ -31,6 +33,29 @@ class Auth with ChangeNotifier {
     }
   }
 
+  Future<void> _authenticateUser(
+      String token, String userId, String expiresIn, AuthType authType) async {
+
+      _token = token;
+      _userId = userId;
+      _expiryDate = DateTime.now().add(
+        Duration(
+          seconds: int.parse(expiresIn),
+        ),
+      );
+
+      _authType = authType;
+
+      Store.saveMap('userData', {
+        "token": _token,
+        "userId": _userId,
+        "expiryDate": _expiryDate.toIso8601String(),
+      });
+
+      _autoLogout();
+      notifyListeners();
+  }
+
   Future<void> _authenticate(
       String email, String password, String urlSegment) async {
     final url =
@@ -47,24 +72,10 @@ class Auth with ChangeNotifier {
 
     final responseBody = json.decode(response.body);
     if (responseBody["error"] != null) {
-      throw AuthException(responseBody['error']['message']);
+      throw AuthExceptionShow(responseBody['error']['message']);
     } else {
-      _token = responseBody["idToken"];
-      _userId = responseBody["localId"];
-      _expiryDate = DateTime.now().add(
-        Duration(
-          seconds: int.parse(responseBody["expiresIn"]),
-        ),
-      );
 
-      Store.saveMap('userData', {
-        "token": _token,
-        "userId": _userId,
-        "expiryDate": _expiryDate.toIso8601String(),
-      });
-
-      _autoLogout();
-      notifyListeners();
+      _authenticateUser(responseBody["idToken"], responseBody["localId"], responseBody["expiresIn"], AuthType.email);
     }
 
     return Future.value();
@@ -97,6 +108,7 @@ class Auth with ChangeNotifier {
     _userId = userData["userId"];
     _token = userData["token"];
     _expiryDate = expiryDate;
+    _authType = userData["authType"];
 
     _autoLogout();
     notifyListeners();
@@ -111,6 +123,8 @@ class Auth with ChangeNotifier {
       _logoutTimer.cancel();
       _logoutTimer = null;
     }
+    _authType = AuthType.unlogged;
+
     Store.remove('userData');
     notifyListeners();
   }

@@ -54,7 +54,7 @@ class AuthScreen extends StatelessWidget {
                     fontFamily: 'Anton',
                   ),
                 ),
-                  ),
+              ),
                 AuthCard(),
               ],
             ),

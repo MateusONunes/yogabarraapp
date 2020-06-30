@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shop/exceptions/auth_exception.dart';
 import 'package:shop/providers/auth.dart';
 
+
 enum AuthMode { Signup, Login }
 
 class AuthCard extends StatefulWidget {
@@ -64,7 +65,7 @@ class _AuthCardState extends State<AuthCard> {
           _authData["password"],
         );
       }
-    } on AuthException catch (error) {
+    } on AuthExceptionShow catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
       _showErrorDialog("Ocorreu um erro inesperado!");
@@ -74,43 +75,7 @@ class _AuthCardState extends State<AuthCard> {
       _isLoading = false;
     });
   }
-
-Future<void> _googleAcount() async {
-    if (!_form.currentState.validate()) {
-      return;
-    }
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    _form.currentState.save();
-
-    Auth auth = Provider.of(context, listen: false);
-
-    try {
-      if (_authMode == AuthMode.Login) {
-        await auth.login(
-          _authData["email"],
-          _authData["password"],
-        );
-      } else {
-        await auth.signup(
-          _authData["email"],
-          _authData["password"],
-        );
-      }
-    } on AuthException catch (error) {
-      _showErrorDialog(error.toString());
-    } catch (error) {
-      _showErrorDialog("Ocorreu um erro inesperado!");
-    }
-
-    setState(() {
-      _isLoading = false;
-    });
-  }  
-
+ 
   void _switchAuthMode() {
     if (_authMode == AuthMode.Login) {
       setState(() {
@@ -133,7 +98,7 @@ Future<void> _googleAcount() async {
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Container(
-        height: _authMode == AuthMode.Login ? 285 : 305,
+        height: _authMode == AuthMode.Login ? 300 : 305,
         width: deviceSize.width * 0.75,
         padding: EdgeInsets.all(16.0),
         child: Form(
@@ -198,24 +163,23 @@ Future<void> _googleAcount() async {
                     onPressed: _submit,
                   ),
                 ),
-                // RaisedButton(
-                //   shape: RoundedRectangleBorder(
-                //     borderRadius: BorderRadius.circular(30),
-                //   ),
-                //   //color: Theme.of(context).primaryColor,
-                //   textColor: Colors.lightBlue[900]  ,// Theme.of(context).primaryTextTheme.button.color,
-                //   padding: EdgeInsets.symmetric(
-                //     horizontal: 30.0,
-                //     vertical: 8.0,
-                //   ),
-                //   child: Text('Logar com Conta Google'),
-                //   onPressed: _googleAcount,
-                // ),
+                if (_authMode == AuthMode.Login)
+                RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  //color: Theme.of(context).primaryColor,
+                  textColor: Colors.lightBlue[900]  ,// Theme.of(context).primaryTextTheme.button.color,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 30.0,
+                    vertical: 8.0,
+                  ),
+                  child: Text('Logar com Conta Google'),
+                  onPressed: _submit,
+                ),
               FlatButton(
                 onPressed: _switchAuthMode,
-                child: Text(
-                  "ALTERNAR P/ ${_authMode == AuthMode.Login ? 'REGISTRAR' : 'LOGIN'}",
-                ),
+                child: Text('${_authMode == AuthMode.Login ? 'Criar Conta' : 'Voltar Para Login'}'),
                 textColor: Theme.of(context).primaryColor,
               ),
             ],

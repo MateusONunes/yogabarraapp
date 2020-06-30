@@ -8,7 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Person_perss with ChangeNotifier {
   final String _baseUrl = '${Constants.BASE_API_URL}/person_pers';
   List<Person_pers> _items = [];
-  final int _take = 8;
+  final int _take = 50;
 
   String _token;
   String _userId;
