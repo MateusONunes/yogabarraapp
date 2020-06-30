@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/exceptions/auth_exception.dart';
 import 'package:shop/providers/auth.dart';
+import '../utils/constants.dart';
 
 
 enum AuthMode { Signup, Login }
@@ -40,8 +41,8 @@ class _AuthCardState extends State<AuthCard> {
     );
   }
 
-  Future<void> _submit() async {
-    if (!_form.currentState.validate()) {
+  Future<void> _submit(AuthType authType) async {
+    if ((authType == AuthType.email) && (!_form.currentState.validate())) {
       return;
     }
 
@@ -55,10 +56,14 @@ class _AuthCardState extends State<AuthCard> {
 
     try {
       if (_authMode == AuthMode.Login) {
-        await auth.login(
-          _authData["email"],
-          _authData["password"],
-        );
+        if (authType == AuthType.email){
+          await auth.login(
+            _authData["email"],
+            _authData["password"],
+          );
+        } else if (authType == AuthType.googleAccount) {
+          await auth.googleAcount();
+        }
       } else {
         await auth.signup(
           _authData["email"],
@@ -160,7 +165,7 @@ class _AuthCardState extends State<AuthCard> {
                     child: Text(
                       _authMode == AuthMode.Login ? 'ENTRAR' : 'REGISTRAR',
                     ),
-                    onPressed: _submit,
+                    onPressed: () {_submit(AuthType.email);}
                   ),
                 ),
                 if (_authMode == AuthMode.Login)
@@ -175,7 +180,7 @@ class _AuthCardState extends State<AuthCard> {
                     vertical: 8.0,
                   ),
                   child: Text('Logar com Conta Google'),
-                  onPressed: _submit,
+                  onPressed: () {_submit(AuthType.googleAccount);}
                 ),
               FlatButton(
                 onPressed: _switchAuthMode,
