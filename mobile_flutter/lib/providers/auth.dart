@@ -44,26 +44,26 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> _authenticateUser(
-      String token, String userId, String expiresIn, AuthType authType) async {
+    String token, String userId, String expiresIn, AuthType authType) async {
 
-      _token = token;
-      _userId = userId;
-      _expiryDate = DateTime.now().add(
-        Duration(
-          seconds: int.parse(expiresIn),
-        ),
-      );
+    _token = token;
+    _userId = userId;
+    _expiryDate = DateTime.now().add(
+      Duration(
+        seconds: int.parse(expiresIn),
+      ),
+    );
 
-      _authType = authType;
+    _authType = authType;
 
-      Store.saveMap('userData', {
-        "token": _token,
-        "userId": _userId,
-        "expiryDate": _expiryDate.toIso8601String(),
-      });
+    Store.saveMap('userData', {
+      "token": _token,
+      "userId": _userId,
+      "expiryDate": _expiryDate.toIso8601String(),
+    });
 
-      _autoLogout();
-      notifyListeners();
+    _autoLogout();
+    notifyListeners();
   }
 
   Future<void> _authenticate(
