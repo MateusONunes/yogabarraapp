@@ -9,6 +9,7 @@ import '../widgets/app_drawer.dart';
 import '../providers/person_perss.dart';
 import '../utils/app_routes.dart';
 import '../widgets/student_item.dart';
+import '../utils/AlertDialogs.dart';
 
 class StudentsScreen extends StatefulWidget{
   @override
@@ -40,13 +41,16 @@ class _StudentsScreenState extends State<StudentsScreen> {
     final person_persData = Provider.of<Person_perss>(context, listen: false);
 
     person_persData.loadStudents()
-      .then((_) {
-        if (_totalItens != person_persData.itemsCount){
-          setState((){
-            _totalItens = person_persData.itemsCount;
-          });
-        }
-      });
+    .then((_) {
+      if (_totalItens != person_persData.itemsCount){
+        setState((){
+          _totalItens = person_persData.itemsCount;
+        });
+      }
+    })
+    .catchError((e) {
+        showError(context, e.toString());
+    });
   }
 
   @override
