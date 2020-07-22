@@ -72,7 +72,7 @@ class _StudentsScreenState extends State<StudentsScreen> {
           ),
         ],
       ),
-      drawer: AppDrawer(),
+//      drawer: AppDrawer(),
       body: RefreshIndicator(
         onRefresh: () => _refreshStudents(context),
         child: Padding(
