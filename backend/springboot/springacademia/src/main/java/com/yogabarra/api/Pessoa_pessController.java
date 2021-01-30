@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/pessoa_pess/get")
+@RequestMapping("/pessoa_pess")
 public class Pessoa_pessController {
     @Autowired
 
