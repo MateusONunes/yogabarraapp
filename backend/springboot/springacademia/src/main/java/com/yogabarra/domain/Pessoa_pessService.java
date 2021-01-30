@@ -54,4 +54,14 @@ public class Pessoa_pessService {
             throw new RuntimeException("Não foi possível atualizar o registro");
         }
     }
+
+    public void delete(Long codigo_pess) {
+        Optional<Pessoa_pess> pessoa_pess = getPessoa_pessById(codigo_pess);
+
+        if(pessoa_pess.isPresent()){
+            rep.deleteById(codigo_pess);
+        } else {
+            throw new RuntimeException("Pessoa não encontrada");
+        }
+    }
 }

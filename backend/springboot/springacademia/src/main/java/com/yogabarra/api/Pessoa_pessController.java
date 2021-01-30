@@ -37,4 +37,12 @@ public class Pessoa_pessController {
 
         return "Pessoa atualizada com sucesso: " + pessoa_pessSalva.getcodigo_pess();
     }
+
+    @DeleteMapping("/{codigo_pess}")
+    public String delete(@PathVariable("codigo_pess") Long codigo_pess){
+        service.delete(codigo_pess);
+
+        return "Pessoa deletada com sucesso: ";
+    }
+
 }
