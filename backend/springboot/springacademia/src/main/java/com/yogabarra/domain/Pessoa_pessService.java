@@ -2,8 +2,10 @@ package com.yogabarra.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class Pessoa_pessService {
@@ -23,5 +25,9 @@ public class Pessoa_pessService {
         listpessoa_pess.add(new Pessoa_pess(2L, "Mateus Nunes"));
 
         return listpessoa_pess;
+    }
+
+    public Optional<Pessoa_pess> getPessoa_pessById(Long id) {
+        return rep.findById(id);
     }
 }
