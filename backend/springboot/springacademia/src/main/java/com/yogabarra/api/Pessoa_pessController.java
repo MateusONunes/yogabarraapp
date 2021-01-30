@@ -31,4 +31,10 @@ public class Pessoa_pessController {
         return "Pessoa salva com código " + pessoa_pessSalva.getcodigo_pess();
     }
 
+    @PutMapping("/{codigo_pess}")
+    public String post(@PathVariable("codigo_pess") Long codigo_pess, @RequestBody Pessoa_pess pessoa_pess){
+        Pessoa_pess pessoa_pessSalva = service.update(pessoa_pess, codigo_pess);
+
+        return "Pessoa atualizada com sucesso: " + pessoa_pessSalva.getcodigo_pess();
+    }
 }

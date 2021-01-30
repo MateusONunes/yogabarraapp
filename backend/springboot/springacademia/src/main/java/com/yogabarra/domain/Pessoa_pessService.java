@@ -2,6 +2,7 @@ package com.yogabarra.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,5 +34,24 @@ public class Pessoa_pessService {
 
     public Pessoa_pess insert(Pessoa_pess pessoa_pess) {
         return rep.save(pessoa_pess);
+    }
+
+    public Pessoa_pess update(Pessoa_pess pessoa_pess, Long codigo_pess) {
+        Assert.notNull(codigo_pess, "É necessário informar codigo_pess");
+
+        Optional<Pessoa_pess> optional = getPessoa_pessById(codigo_pess);
+
+        if(optional.isPresent()){
+            Pessoa_pess db = optional.get();
+            //Copiar as propriedades
+            db.setNome(pessoa_pess.getnome_pess());
+            System.out.println("Codigo_pess:" + db.getcodigo_pess());
+
+            rep.save(db);
+
+            return db;
+        }else{
+            throw new RuntimeException("Não foi possível atualizar o registro");
+        }
     }
 }
