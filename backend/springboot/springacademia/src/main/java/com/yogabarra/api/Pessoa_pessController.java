@@ -22,8 +22,25 @@ public class Pessoa_pessController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Pessoa_pess> get(@PathVariable("id") Long id){
-        return service.getPessoa_pessById(id);
+    public ResponseEntity get(@PathVariable("id") Long id){
+        Optional<Pessoa_pess> pessoa_pess = service.getPessoa_pessById(id);
+
+        return pessoa_pess.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build()); // Mesmo que a linha de baixof
+
+//        return pessoa_pess.map(c -> ResponseEntity.ok(c)).orElse(ResponseEntity.notFound().build());
+
+//        Maneira 2 - if ternário
+//        return pessoa_pess.isPresent() ?
+//                ResponseEntity.ok(pessoa_pess.get()) :
+//                ResponseEntity.notFound().build();
+
+//        Maneira 1: O Código abaixo faz o mesmo que a linha anterior(Maneira 2).
+//        if (pessoa_pess.isPresent()){
+//            return ResponseEntity.ok(pessoa_pess.get());
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+
     }
 
     @PostMapping()
