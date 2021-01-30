@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Pessoa_pess {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "genpessoa_pess_codigo_pess")
     private long codigo_pess;
 
     @Column(name="nome_pess")

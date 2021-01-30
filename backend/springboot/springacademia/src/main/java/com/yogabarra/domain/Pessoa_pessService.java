@@ -30,4 +30,8 @@ public class Pessoa_pessService {
     public Optional<Pessoa_pess> getPessoa_pessById(Long id) {
         return rep.findById(id);
     }
+
+    public Pessoa_pess Save(Pessoa_pess pessoa_pess) {
+        return rep.save(pessoa_pess);
+    }
 }
