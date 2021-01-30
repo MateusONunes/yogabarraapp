@@ -26,7 +26,7 @@ public class Pessoa_pessController {
 
     @PostMapping()
     public String post(@RequestBody Pessoa_pess pessoa_pess){
-        Pessoa_pess pessoa_pessSalva = service.Save(pessoa_pess);
+        Pessoa_pess pessoa_pessSalva = service.insert(pessoa_pess);
 
         return "Pessoa salva com código " + pessoa_pessSalva.getcodigo_pess();
     }

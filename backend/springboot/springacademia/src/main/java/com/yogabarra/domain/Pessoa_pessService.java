@@ -31,7 +31,7 @@ public class Pessoa_pessService {
         return rep.findById(id);
     }
 
-    public Pessoa_pess Save(Pessoa_pess pessoa_pess) {
+    public Pessoa_pess insert(Pessoa_pess pessoa_pess) {
         return rep.save(pessoa_pess);
     }
 }
