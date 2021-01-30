@@ -1,27 +1,39 @@
 package com.yogabarra.domain;
 
+import javax.persistence.*;
+
+@Entity(name="pessoa_pess")
 public class Pessoa_pess {
-    private long id;
-    private String nome;
 
-    public Pessoa_pess(long id, String nome) {
-        this.id = id;
-        this.nome = nome;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long codigo_pess;
+
+    @Column(name="nome_pess")
+    private String nome_pess;
+
+    public Pessoa_pess(){
+
     }
 
-    public long getId() {
-        return id;
+    public Pessoa_pess(long codigo_pess, String nome_pess) {
+        this.codigo_pess = codigo_pess;
+        this.nome_pess = nome_pess;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public long getcodigo_pess() {
+        return codigo_pess;
     }
 
-    public String getNome() {
-        return nome;
+    public void setcodigo_pess(long codigo_pess) {
+        this.codigo_pess = codigo_pess;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public String getnome_pess() {
+        return nome_pess;
+    }
+
+    public void setNome(String nome_pess) {
+        this.nome_pess = nome_pess;
     }
 }

@@ -17,7 +17,7 @@ public class Pessoa_pessController {
     private Pessoa_pessService service;
 
     @GetMapping()
-    public List<Pessoa_pess> get(){
+    public Iterable<Pessoa_pess> get(){
         return service.getPessoa_pess();
     }
 

@@ -1,2 +1,6 @@
-package com.yogabarra.domain;public class Pessoa_pessRepository {
+package com.yogabarra.domain;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface Pessoa_pessRepository extends CrudRepository<Pessoa_pess, Long> {
 }
