@@ -3,6 +3,7 @@ package com.yogabarra.api;
 import com.yogabarra.domain.Pessoa_pess;
 import com.yogabarra.domain.Pessoa_pessService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -15,8 +16,9 @@ public class Pessoa_pessController {
     private Pessoa_pessService service;
 
     @GetMapping()
-    public Iterable<Pessoa_pess> get(){
-        return service.getPessoa_pess();
+    public ResponseEntity<Iterable<Pessoa_pess>> get(){
+        return ResponseEntity.ok(service.getPessoa_pess());
+//        return new ResponseEntity<>(service.getPessoa_pess(), HttpStatus.OK); //Mesmo que a olinha anterior
     }
 
     @GetMapping("/{id}")
