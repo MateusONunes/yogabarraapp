@@ -64,4 +64,8 @@ public class Pessoa_pessService {
             throw new RuntimeException("Pessoa não encontrada");
         }
     }
+
+    public Iterable<Pessoa_pess> getPessoa_pessByNome_pess(String nome_pess) {
+        return rep.findBynome_pess(nome_pess);
+    }
 }

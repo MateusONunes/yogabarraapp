@@ -43,6 +43,11 @@ public class Pessoa_pessController {
 
     }
 
+    @GetMapping("/nome_pess/{nome_pess}")
+    public Iterable<Pessoa_pess> getPessoaByNome_pess(@PathVariable("nome_pess") String nome_pess){
+        return service.getPessoa_pessByNome_pess(nome_pess);
+    }
+
     @PostMapping()
     public String post(@RequestBody Pessoa_pess pessoa_pess){
         Pessoa_pess pessoa_pessSalva = service.insert(pessoa_pess);
