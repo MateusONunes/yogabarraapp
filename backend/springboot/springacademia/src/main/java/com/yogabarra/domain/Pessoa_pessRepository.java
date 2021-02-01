@@ -1,10 +1,11 @@
 package com.yogabarra.domain;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface Pessoa_pessRepository extends CrudRepository<Pessoa_pess, Long> {
 
-//  @Query(value="select * from pessoa_pess pess where upper(nome_pess)  = :nome_pess",nativeQuery=true)
-//  @Query(value="select * from pessoa_pess pess where codigo_pess = :nome_pess",nativeQuery=true)
-  Iterable<Pessoa_pess> findBynome_pess(String nome_pess);
+  @Query(value="select * from pessoa_pess pess where position(uPPER(:nome_pess) in uPPER(nome_pess)) > 0",nativeQuery=true)
+  Iterable<Pessoa_pess> findBynome_pess(@RequestParam("nome_pess")String nome_pess);
 }
