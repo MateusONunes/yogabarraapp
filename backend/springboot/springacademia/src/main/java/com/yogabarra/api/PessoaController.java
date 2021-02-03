@@ -57,14 +57,14 @@ public class PessoaController {
     public String post(@RequestBody Pessoa pessoa){
         Pessoa pessoaSalva = service.insert(pessoa);
 
-        return "Pessoa salva com código " + pessoaSalva.getcodigopess();
+        return "Pessoa salva com código " + pessoaSalva.getCodigopess();
     }
 
     @PutMapping("/{codigopess}")
     public String post(@PathVariable("codigopess") Long codigopess, @RequestBody Pessoa pessoa){
         Pessoa pessoaSalva = service.update(pessoa, codigopess);
 
-        return "Pessoa atualizada com sucesso: " + pessoaSalva.getcodigopess();
+        return "Pessoa atualizada com sucesso: " + pessoaSalva.getCodigopess();
     }
 
     @DeleteMapping("/{codigopess}")

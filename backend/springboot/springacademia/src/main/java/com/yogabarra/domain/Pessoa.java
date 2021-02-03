@@ -1,8 +1,11 @@
 package com.yogabarra.domain;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity(name="pessoa")
+@Data
 public class Pessoa {
 
     @Id
@@ -12,28 +15,10 @@ public class Pessoa {
     @Column(name="nomepess")
     private String nomepess;
 
-    public Pessoa(){
-
-    }
+    public Pessoa() {}
 
     public Pessoa(long codigopess, String nomepess) {
         this.codigopess = codigopess;
-        this.nomepess = nomepess;
-    }
-
-    public long getcodigopess() {
-        return codigopess;
-    }
-
-    public void setcodigopess(long codigopess) {
-        this.codigopess = codigopess;
-    }
-
-    public String getnomepess() {
-        return nomepess;
-    }
-
-    public void setNome(String nomepess) {
         this.nomepess = nomepess;
     }
 }

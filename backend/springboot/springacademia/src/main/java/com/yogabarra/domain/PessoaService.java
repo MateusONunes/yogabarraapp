@@ -44,8 +44,8 @@ public class PessoaService {
         if(optional.isPresent()){
             Pessoa db = optional.get();
             //Copiar as propriedades
-            db.setNome(pessoa.getnomepess());
-            System.out.println("Codigopess:" + db.getcodigopess()); // exemplo de print
+            db.setNomepess(pessoa.getNomepess());
+            System.out.println("Codigopess:" + db.getCodigopess()); // exemplo de print
 
             rep.save(db);
 
