@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -44,8 +45,12 @@ public class Pessoa_pessController {
     }
 
     @GetMapping("/nome_pess/{nome_pess}")
-    public Iterable<Pessoa_pess> getPessoaByNome_pess(@PathVariable("nome_pess") String nome_pess){
-        return service.getPessoa_pessByNome_pess(nome_pess);
+    public ResponseEntity getPessoaByNome_pess(@PathVariable("nome_pess") String nome_pess){
+        List<Pessoa_pess> listPessoa_pess =  service.getPessoa_pessByNome_pess(nome_pess);
+
+        return listPessoa_pess.isEmpty() ?
+                ResponseEntity.noContent().build() :
+                ResponseEntity.ok(listPessoa_pess);
     }
 
     @PostMapping()

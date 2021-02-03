@@ -65,7 +65,7 @@ public class Pessoa_pessService {
         }
     }
 
-    public Iterable<Pessoa_pess> getPessoa_pessByNome_pess(String nome_pess) {
+    public List<Pessoa_pess> getPessoa_pessByNome_pess(String nome_pess) {
         return rep.findBynome_pess(nome_pess);
     }
 }
