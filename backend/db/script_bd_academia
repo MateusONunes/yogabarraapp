@@ -1,71 +1,71 @@
-DROP table if exists PESSOA_TIPOPESSOA_TTPE;
-DROP TABLE if exists TIPOPESSOA_TPES;
-DROP TABLE if exists PESSOA_PESS;
+DROP table if exists PESSOA_TIPOPESSOA;
+DROP TABLE if exists TIPOPESSOA;
+DROP TABLE if exists PESSOA;
 
-CREATE TABLE PESSOA_PESS
+CREATE TABLE PESSOA
 (
-    CODIGO_PESS integer,
-	NOME_PESS VARCHAR(100),
-	NASCIMENTO_PESS DATE,
-	ENDERECO_PESS VARCHAR(150),
-	CPF_PESS VARCHAR(15),
-	RG_PESS VARCHAR(15),
-	CIDADE_PESS VARCHAR(50),
-	FONEW_PESS VARCHAR(20),
-	FONE2_PESS VARCHAR(20),
-	FONE3_PESS VARCHAR(20),
-	EMAIL_PESS VARCHAR(60),
-	OBSERVACOES_PESS TEXT
+    CODIGOPESS integer,
+	NOMEPESS VARCHAR(100),
+	NASCIMENTOPESS DATE,
+	ENDERECOPESS VARCHAR(150),
+	CPFPESS VARCHAR(15),
+	RGPESS VARCHAR(15),
+	CIDADEPESS VARCHAR(50),
+	FONEWPESS VARCHAR(20),
+	FONE2PESS VARCHAR(20),
+	FONE3PESS VARCHAR(20),
+	EMAILPESS VARCHAR(60),
+	OBSERVACOESPESS TEXT
 )
 
 TABLESPACE pg_default;
 
-ALTER TABLE PESSOA_PESS OWNER to postgres;
+ALTER TABLE PESSOA OWNER to postgres;
 
-COMMENT ON TABLE PESSOA_PESS IS 'Cadastro de Pessoas';
+COMMENT ON TABLE PESSOA IS 'Cadastro de Pessoas';
 
-CREATE TABLE TIPOPESSOA_TPES(
-	CODIGO_TPES SMALLINT,
-	NOME_TPES VARCHAR(20)
+CREATE TABLE TIPOPESSOA(
+	CODIGOTPES SMALLINT,
+	NOMETPES VARCHAR(20)
 );
 
-CREATE TABLE PESSOA_TIPOPESSOA_TTPE(
-	CODIGO_PESS INTEGER,
-	CODIGO_TPES SMALLINT
+CREATE TABLE PESSOA_TIPOPESSOA(
+	CODIGOPESS INTEGER,
+	CODIGOTPES SMALLINT
 );
 
-INSERT INTO TIPOPESSOA_TPES(CODIGO_TPES, NOME_TPES) VALUES (1, 'Dev');
-INSERT INTO TIPOPESSOA_TPES(CODIGO_TPES, NOME_TPES) VALUES (2, 'Administrador');
-INSERT INTO TIPOPESSOA_TPES(CODIGO_TPES, NOME_TPES) VALUES (3, 'Instrutor');
-INSERT INTO TIPOPESSOA_TPES(CODIGO_TPES, NOME_TPES) VALUES (4, 'Aluno');
+INSERT INTO TIPOPESSOA(CODIGOTPES, NOMETPES) VALUES (1, 'Dev');
+INSERT INTO TIPOPESSOA(CODIGOTPES, NOMETPES) VALUES (2, 'Administrador');
+INSERT INTO TIPOPESSOA(CODIGOTPES, NOMETPES) VALUES (3, 'Instrutor');
+INSERT INTO TIPOPESSOA(CODIGOTPES, NOMETPES) VALUES (4, 'Aluno');
 
 
-CREATE UNIQUE INDEX pk_pessoa ON pessoa_pess(codigo_pess);
-CREATE UNIQUE INDEX PK_TIPOPESSOA_TPES ON TIPOPESSOA_TPES(CODIGO_TPES);
+CREATE UNIQUE INDEX pk_pessoa ON pessoa(codigoPESS);
+CREATE UNIQUE INDEX PK_TIPOPESSOA_TPES ON TIPOPESSOA(CODIGOTPES);
 
-ALTER TABLE pessoa_tipopessoa_ttpe ADD FOREIGN KEY (codigo_pess) REFERENCES pessoa_pess (codigo_pess) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION NOT VALID;
-CREATE INDEX fk_pessoa_tipopessoa_1 ON pessoa_tipopessoa_ttpe(codigo_pess);
+ALTER TABLE pessoa_tipopessoa ADD FOREIGN KEY (codigoPESS) REFERENCES pessoa (codigoPESS) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION NOT VALID;
+CREATE INDEX fk_pessoa_tipopessoa_1 ON pessoa_tipopessoa(codigoPESS);
 	
-ALTER TABLE pessoa_tipopessoa_ttpe ADD FOREIGN KEY (CODIGO_TPES) REFERENCES TIPOPESSOA_TPES (CODIGO_TPES) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION NOT VALID;
-CREATE INDEX fk_pessoa_tipopessoa_2 ON pessoa_tipopessoa_ttpe(CODIGO_TPES);
+ALTER TABLE pessoa_tipopessoa ADD FOREIGN KEY (CODIGOTPES) REFERENCES TIPOPESSOA (CODIGOTPES) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION NOT VALID;
+CREATE INDEX fk_pessoa_tipopessoa_2 ON pessoa_tipopessoa(CODIGOTPES);
 	
 ---------------------------------------------------------------------------------------------------------------------------------------
 
-delete from PESSOA_PESS;
+delete from PESSOA;
 commit;
-insert into PESSOA_PESS (CODIGO_PESS, NOME_PESS) values (1, 'Ana Paula Yjanne');
-insert into PESSOA_PESS (CODIGO_PESS, NOME_PESS) values (2, 'Mateus ONunes');
-insert into PESSOA_PESS (CODIGO_PESS, NOME_PESS) values (3, 'Ivo Vida');
-insert into PESSOA_PESS (CODIGO_PESS, NOME_PESS) values (4, 'Sueli Puti');
-insert into PESSOA_PESS (CODIGO_PESS, NOME_PESS) values (5, 'Andressa Bonalume');
-
-commit;
-
-insert into pessoa_tipopessoa_ttpe (codigo_pess, codigo_tpes) values (1, 2);
-insert into pessoa_tipopessoa_ttpe (codigo_pess, codigo_tpes) values (2, 1);
-insert into pessoa_tipopessoa_ttpe (codigo_pess, codigo_tpes) values (3, 4);
-insert into pessoa_tipopessoa_ttpe (codigo_pess, codigo_tpes) values (4, 4);
+insert into PESSOA (CODIGOPESS, NOMEPESS) values (1, 'Ana Paula Yjanne');
+insert into PESSOA (CODIGOPESS, NOMEPESS) values (2, 'Mateus ONunes');
+insert into PESSOA (CODIGOPESS, NOMEPESS) values (3, 'Ivo Vida');
+insert into PESSOA (CODIGOPESS, NOMEPESS) values (4, 'Sueli Puti');
+insert into PESSOA (CODIGOPESS, NOMEPESS) values (5, 'Andressa Bonalume');
 
 commit;
 
---select * from pessoa_pess pp 
+insert into pessoa_tipopessoa (codigoPESS, codigotpes) values (1, 2);
+insert into pessoa_tipopessoa (codigoPESS, codigotpes) values (2, 1);
+insert into pessoa_tipopessoa (codigoPESS, codigotpes) values (3, 4);
+insert into pessoa_tipopessoa (codigoPESS, codigotpes) values (4, 4);
+
+commit;
+
+--select * from pessoa pp 
