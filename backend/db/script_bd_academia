@@ -1,6 +1,7 @@
 DROP table if exists PESSOA_TIPOPESSOA;
 DROP TABLE if exists TIPOPESSOA;
 DROP TABLE if exists PESSOA;
+DROP SEQUENCE if exists genpessoa_codigopess;
 
 CREATE TABLE PESSOA
 (
@@ -19,6 +20,8 @@ CREATE TABLE PESSOA
 )
 
 TABLESPACE pg_default;
+
+CREATE SEQUENCE genpessoa_codigopess;
 
 ALTER TABLE PESSOA OWNER to postgres;
 
@@ -67,5 +70,12 @@ insert into pessoa_tipopessoa (codigoPESS, codigotpes) values (3, 4);
 insert into pessoa_tipopessoa (codigoPESS, codigotpes) values (4, 4);
 
 commit;
+
+ALTER SEQUENCE genpessoa_codigopess RESTART WITH 6;
+COMMIT;
+--select last_value from genpessoa_codigopess 
+--select nextval('genpessoa_codigopess') 
+
+
 
 --select * from pessoa pp 
