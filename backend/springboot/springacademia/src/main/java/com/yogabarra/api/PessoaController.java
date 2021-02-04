@@ -10,7 +10,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/pessoa")
@@ -27,9 +26,12 @@ public class PessoaController {
 
     @GetMapping("/{id}")
     public ResponseEntity get(@PathVariable("id") Long id){
-        Optional<Pessoa> pessoa = service.getPessoaById(id);
+        PessoaDTO pessoa = service.getPessoaById(id);
 
-        return pessoa.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build()); // Mesmo que a linha de baixof
+        return ResponseEntity.ok(pessoa);
+
+//        //Método 3 antes da aula - 55. ResponseStatus-https://www.udemy.com/course/springboot-essencial/learn/lecture/14897092#overview
+//        return pessoa.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build()); // Mesmo que a linha de baixof
 
 //        return pessoa.map(c -> ResponseEntity.ok(c)).orElse(ResponseEntity.notFound().build());
 
