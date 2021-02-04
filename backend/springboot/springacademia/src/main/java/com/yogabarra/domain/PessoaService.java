@@ -17,7 +17,7 @@ public class PessoaService {
     private PessoaRepository rep;
 
     public List<PessoaDTO> getPessoa(){
-        return rep.findAll().stream().map(PessoaDTO::new).collect(Collectors.toList());
+        return rep.findAll().stream().map(PessoaDTO::create).collect(Collectors.toList());
 
 //        //**Maneira 1
 //        List <PessoaDTO> listpessoasDTO = new ArrayList<>();
@@ -75,6 +75,6 @@ public class PessoaService {
     }
 
     public List<PessoaDTO> getPessoaByNomepess(String nomepess) {
-        return rep.findBynomepess(nomepess).stream().map(PessoaDTO::new).collect(Collectors.toList());
+        return rep.findBynomepess(nomepess).stream().map(PessoaDTO::create).collect(Collectors.toList());
     }
 }

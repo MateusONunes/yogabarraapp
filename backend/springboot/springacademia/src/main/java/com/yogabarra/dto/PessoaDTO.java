@@ -2,6 +2,7 @@ package com.yogabarra.dto;
 
 import com.yogabarra.domain.Pessoa;
 import lombok.Data;
+import org.modelmapper.ModelMapper;
 
 @Data
 public class PessoaDTO {
@@ -9,11 +10,9 @@ public class PessoaDTO {
   private long codigopess;
   private String nomepess;
 
-  public PessoaDTO(Pessoa pessoa){
-    this.codigopess = pessoa.getCodigopess();
-    this.nomepess = pessoa.getNomepess();
+  public static PessoaDTO create(Pessoa pessoa){
+    ModelMapper modelMapper = new ModelMapper();
+    return modelMapper.map(pessoa, PessoaDTO.class);
   }
-
 }
-
 
