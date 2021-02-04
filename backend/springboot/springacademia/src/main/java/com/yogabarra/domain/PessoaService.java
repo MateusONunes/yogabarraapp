@@ -1,7 +1,6 @@
 package com.yogabarra.domain;
 
 import com.yogabarra.dto.PessoaDTO;
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -38,10 +37,8 @@ public class PessoaService {
         return listpessoa;
     }
 
-    public PessoaDTO getPessoaById(Long id) {
-        Optional<Pessoa> pessoa = rep.findById(id);
-
-        return pessoa.map(PessoaDTO::create).orElseThrow(() -> new ObjectNotFoundException("Pessoa não encontrada"));
+    public Optional<Pessoa>  getPessoaById(Long id) {
+        return rep.findById(id);
     }
 
     public PessoaDTO insert(Pessoa pessoa) {
@@ -52,7 +49,7 @@ public class PessoaService {
     public PessoaDTO update(Pessoa pessoa, Long codigopess) {
         Assert.notNull(codigopess, "É necessário informar codigopess");
 
-        Optional<Pessoa> optional = getPessoaById(codigopess);
+        Optional<Pessoa> optional = rep.findById(codigopess);
 
         if(optional.isPresent()){
             Pessoa db = optional.get();
