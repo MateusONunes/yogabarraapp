@@ -65,13 +65,8 @@ public class PessoaService {
         }
     }
 
-    public boolean delete(Long codigopess) {
-        if(getPessoaById(codigopess).isPresent()){
-            rep.deleteById(codigopess);
-            return true;
-        }
-
-        return false;
+    public void delete(Long codigopess) {
+        rep.deleteById(codigopess);
     }
 
     public List<PessoaDTO> getPessoaByNomepess(String nomepess) {

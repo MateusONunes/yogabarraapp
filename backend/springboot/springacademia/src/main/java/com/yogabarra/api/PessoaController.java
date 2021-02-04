@@ -85,9 +85,8 @@ public class PessoaController {
 
     @DeleteMapping("/{codigopess}")
     public ResponseEntity delete(@PathVariable("codigopess") Long codigopess){
-        return service.delete(codigopess) ?
-                ResponseEntity.ok().build() :
-                ResponseEntity.notFound().build();
+        service.delete(codigopess);
+        return ResponseEntity.ok().build();
     }
 
 }
