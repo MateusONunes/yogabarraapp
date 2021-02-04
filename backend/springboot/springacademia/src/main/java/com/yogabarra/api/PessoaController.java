@@ -6,7 +6,9 @@ import com.yogabarra.dto.PessoaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,10 +57,19 @@ public class PessoaController {
     }
 
     @PostMapping()
-    public String post(@RequestBody Pessoa pessoa){
-        Pessoa pessoaSalva = service.insert(pessoa);
+    public ResponseEntity post(@RequestBody Pessoa pessoa){
+        try {
+            PessoaDTO pessoaSalva = service.insert(pessoa);
 
-        return "Pessoa salva com código " + pessoaSalva.getCodigopess();
+            URI location = getUri(pessoaSalva.getCodigopess());
+            return ResponseEntity.created(location).build();
+        }catch (Exception ex){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    private URI getUri(Long id){
+        return ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
     }
 
     @PutMapping("/{codigopess}")

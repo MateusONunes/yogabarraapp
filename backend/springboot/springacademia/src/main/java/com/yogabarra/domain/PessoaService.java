@@ -41,8 +41,9 @@ public class PessoaService {
         return rep.findById(id);
     }
 
-    public Pessoa insert(Pessoa pessoa) {
-        return rep.save(pessoa);
+    public PessoaDTO insert(Pessoa pessoa) {
+        Assert.isTrue(pessoa.getCodigopess() == 0, "Falha ao inserir registro.");
+        return PessoaDTO.create(rep.save(pessoa));
     }
 
     public Pessoa update(Pessoa pessoa, Long codigopess) {
