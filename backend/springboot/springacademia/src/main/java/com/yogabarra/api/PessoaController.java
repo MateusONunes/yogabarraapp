@@ -58,14 +58,11 @@ public class PessoaController {
 
     @PostMapping()
     public ResponseEntity post(@RequestBody Pessoa pessoa){
-        try {
-            PessoaDTO pessoaSalva = service.insert(pessoa);
 
-            URI location = getUri(pessoaSalva.getCodigopess());
-            return ResponseEntity.created(location).build();
-        }catch (Exception ex){
-            return ResponseEntity.badRequest().build();
-        }
+        PessoaDTO pessoaSalva = service.insert(pessoa);
+
+        URI location = getUri(pessoaSalva.getCodigopess());
+        return ResponseEntity.created(location).build();
     }
 
     private URI getUri(Long id){
