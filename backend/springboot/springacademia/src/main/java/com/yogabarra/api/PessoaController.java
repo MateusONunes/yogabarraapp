@@ -2,6 +2,7 @@ package com.yogabarra.api;
 
 import com.yogabarra.domain.Pessoa;
 import com.yogabarra.domain.PessoaService;
+import com.yogabarra.dto.PessoaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class PessoaController {
     private PessoaService service;
 
     @GetMapping()
-    public ResponseEntity<Iterable<Pessoa>> get(){
+    public ResponseEntity<List<PessoaDTO>> get(){
         return ResponseEntity.ok(service.getPessoa());
 //        return new ResponseEntity<>(service.getPessoa(), HttpStatus.OK); //Mesmo que a olinha anterior
     }
@@ -46,7 +47,7 @@ public class PessoaController {
 
     @GetMapping("/nomepess/{nomepess}")
     public ResponseEntity getPessoaByNomepess(@PathVariable("nomepess") String nomepess){
-        List<Pessoa> listPessoa =  service.getPessoaByNomepess(nomepess);
+        List<PessoaDTO> listPessoa =  service.getPessoaByNomepess(nomepess);
 
         return listPessoa.isEmpty() ?
                 ResponseEntity.noContent().build() :

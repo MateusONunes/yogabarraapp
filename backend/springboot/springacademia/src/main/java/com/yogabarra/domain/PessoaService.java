@@ -1,5 +1,6 @@
 package com.yogabarra.domain;
 
+import com.yogabarra.dto.PessoaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -7,6 +8,7 @@ import org.springframework.util.Assert;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PessoaService {
@@ -14,9 +16,16 @@ public class PessoaService {
     @Autowired
     private PessoaRepository rep;
 
-    public Iterable<Pessoa> getPessoa(){
-        Iterable r = rep.findAll();
-        return r;
+    public List<PessoaDTO> getPessoa(){
+        return rep.findAll().stream().map(PessoaDTO::new).collect(Collectors.toList());
+
+//        //**Maneira 1
+//        List <PessoaDTO> listpessoasDTO = new ArrayList<>();
+//
+//        for (Pessoa p:pessoas){
+//            listpessoasDTO.add(new PessoaDTO(p));
+//        }
+//        return listpessoasDTO;
     }
 
     public List<Pessoa> getPessoaFake(){
@@ -65,7 +74,7 @@ public class PessoaService {
         }
     }
 
-    public List<Pessoa> getPessoaByNomepess(String nomepess) {
-        return rep.findBynomepess(nomepess);
+    public List<PessoaDTO> getPessoaByNomepess(String nomepess) {
+        return rep.findBynomepess(nomepess).stream().map(PessoaDTO::new).collect(Collectors.toList());
     }
 }
