@@ -65,14 +65,13 @@ public class PessoaService {
         }
     }
 
-    public void delete(Long codigopess) {
-        Optional<Pessoa> pessoa = getPessoaById(codigopess);
-
-        if(pessoa.isPresent()){
+    public boolean delete(Long codigopess) {
+        if(getPessoaById(codigopess).isPresent()){
             rep.deleteById(codigopess);
-        } else {
-            throw new RuntimeException("Pessoa não encontrada");
+            return true;
         }
+
+        return false;
     }
 
     public List<PessoaDTO> getPessoaByNomepess(String nomepess) {
