@@ -46,7 +46,7 @@ public class PessoaService {
         return PessoaDTO.create(rep.save(pessoa));
     }
 
-    public Pessoa update(Pessoa pessoa, Long codigopess) {
+    public PessoaDTO update(Pessoa pessoa, Long codigopess) {
         Assert.notNull(codigopess, "É necessário informar codigopess");
 
         Optional<Pessoa> optional = getPessoaById(codigopess);
@@ -59,9 +59,9 @@ public class PessoaService {
 
             rep.save(db);
 
-            return db;
+            return PessoaDTO.create(db);
         }else{
-            throw new RuntimeException("Não foi possível atualizar o registro");
+            return null;
         }
     }
 

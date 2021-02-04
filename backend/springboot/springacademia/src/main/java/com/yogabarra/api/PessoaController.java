@@ -73,10 +73,14 @@ public class PessoaController {
     }
 
     @PutMapping("/{codigopess}")
-    public String post(@PathVariable("codigopess") Long codigopess, @RequestBody Pessoa pessoa){
-        Pessoa pessoaSalva = service.update(pessoa, codigopess);
+    public ResponseEntity post(@PathVariable("codigopess") Long codigopess, @RequestBody Pessoa pessoa){
+        pessoa.setCodigopess(codigopess);
 
-        return "Pessoa atualizada com sucesso: " + pessoaSalva.getCodigopess();
+        PessoaDTO pessoaSalva = service.update(pessoa, codigopess);
+
+        return pessoaSalva != null ?
+                ResponseEntity.ok(pessoaSalva) :
+                ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{codigopess}")
