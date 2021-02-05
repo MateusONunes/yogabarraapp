@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -55,6 +56,17 @@ public class PessoaService {
             Pessoa db = optional.get();
             //Copiar as propriedades
             db.setNomepess(pessoa.getNomepess());
+            db.setNascimentopess(pessoa.getNascimentopess());
+            db.setEnderecopess(pessoa.getEnderecopess());
+            db.setCpfpess(pessoa.getCpfpess());
+            db.setRgpess(pessoa.getRgpess());
+            db.setCidadepess(pessoa.getCidadepess());
+            db.setFonewpess(pessoa.getFonewpess());
+            db.setFone2pess(pessoa.getFone2pess());
+            db.setFone3pess(pessoa.getFone3pess());
+            db.setEmailpess(pessoa.getEmailpess());
+            db.setObservacoespess(pessoa.getObservacoespess());
+
             System.out.println("Codigopess:" + db.getCodigopess()); // exemplo de print
 
             rep.save(db);

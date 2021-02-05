@@ -1,8 +1,14 @@
 package com.yogabarra.domain;
 
-import lombok.Data;
+import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import lombok.Data;
 
 @Entity(name="pessoa")
 @Data
@@ -14,6 +20,17 @@ public class Pessoa {
 
     @Column(name="nomepess")
     private String nomepess;
+
+    private Date nascimentopess;
+    private String enderecopess;
+    private String cpfpess;
+    private String rgpess;
+    private String cidadepess;
+    private String fonewpess;
+    private String fone2pess;
+    private String fone3pess;
+    private String emailpess;
+    private String observacoespess;
 
     public Pessoa() {}
 
