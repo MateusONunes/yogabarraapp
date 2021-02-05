@@ -25,7 +25,7 @@ class Auth with ChangeNotifier {
 
 
   bool get isAuth {
-    return token != null;
+    return true;// token != null;
   }
 
   String get userId {
