@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/app_drawer.dart';
-import '../providers/person_perss.dart';
 import '../utils/app_routes.dart';
 import '../widgets/student_item.dart';
 import '../utils/AlertDialogs.dart';
+import 'package:app_academias/utils/GlobalObjects.dart';
 
 class StudentsScreen extends StatefulWidget{
   @override
@@ -17,34 +17,28 @@ class StudentsScreen extends StatefulWidget{
 }
 
 class _StudentsScreenState extends State<StudentsScreen> {
+  GestorService gestorService = null;
 
   int _totalItens;
 
   void initState() {
     super.initState();
-
-    _loadStudents(context);
   }
 
   Future<void> _refreshStudents(BuildContext context) {
-    final person_persData = Provider.of<Person_perss>(context, listen: false);
-
-    return person_persData.reloadStudents()
-    .then((_) {
-      setState((){
-        _totalItens = person_persData.itemsCount;
-      });
-    });
+    _totalItens = -1;
+    _loadStudents(context);
   }
 
   Future<Null> _loadStudents(BuildContext context) async {
-    final person_persData = Provider.of<Person_perss>(context, listen: false);
+    final pessoaList = gestorService.pessoaList;
+    print('xx');
 
-    person_persData.loadStudents()
+    pessoaList.carregarPessoas()
     .then((_) {
-      if (_totalItens != person_persData.itemsCount){
+      if (_totalItens != pessoaList.itemsCount){
         setState((){
-          _totalItens = person_persData.itemsCount;
+          _totalItens = pessoaList.itemsCount;
         });
       }
     })
@@ -55,8 +49,14 @@ class _StudentsScreenState extends State<StudentsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final person_persData = Provider.of<Person_perss>(context);
-    final person_pers = person_persData.items;
+    bool carregarPessoas = gestorService == null;
+
+    gestorService = Provider.of(context);
+
+    if (carregarPessoas)
+      _loadStudents(context);
+
+    final pessoaList = gestorService.pessoaList.items;
 
     return Scaffold(
       appBar: AppBar(
@@ -78,16 +78,11 @@ class _StudentsScreenState extends State<StudentsScreen> {
         child: Padding(
           padding: EdgeInsets.all(8),
           child: ListView.builder(
-            itemCount: person_persData.itemsCount,
+            itemCount: pessoaList.length,
             itemBuilder: (ctx, i) {
-
-              if (i >= person_persData.itemsCount-1){
-                _loadStudents(context);
-              }
-
               return Column(
                 children: <Widget>[
-                StudentItem(person_pers[i]),
+                StudentItem(pessoaList[i]),
                 Divider(),
               ],
               );

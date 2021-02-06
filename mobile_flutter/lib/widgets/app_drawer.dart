@@ -11,7 +11,6 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Auth auth = Provider.of(context, listen: false);
 
     return Drawer(
       child: Column(
@@ -55,8 +54,6 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.edit),
             title: Text('Presenças'),
             // onTap: () {
-            //   print('auth.token' + auth.token);
-            //   print('auth.userId' + auth.userId);
             // }
           ),
           Divider(),
@@ -74,8 +71,6 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.edit),
             title: Text('Sair'),
             onTap: () {
-              //print('auth.token' + auth.token);
-              //print('auth.userId' + auth.userId);
               Provider.of<Auth>(context, listen: false).logout();
             },
           ),          

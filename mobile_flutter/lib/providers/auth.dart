@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shop/data/store.dart';
-import 'package:shop/exceptions/auth_exception.dart';
+import 'package:app_academias/data/store.dart';
+import 'package:app_academias/exceptions/auth_exception.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../utils/constants.dart';
 
@@ -146,8 +146,8 @@ Future<void> googleAcount() async {
     // _authType = userData["authType"];
     //
     // _autoLogout();
-    // notifyListeners();
-    // return Future.value();
+    notifyListeners();
+    return Future.value();
   }
 
   void logout() async {

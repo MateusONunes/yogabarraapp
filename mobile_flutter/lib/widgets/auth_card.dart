@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop/exceptions/auth_exception.dart';
-import 'package:shop/providers/auth.dart';
+import 'package:app_academias/exceptions/auth_exception.dart';
+import 'package:app_academias/providers/auth.dart';
 import '../utils/constants.dart';
 
 

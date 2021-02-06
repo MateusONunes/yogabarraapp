@@ -1,11 +1,11 @@
+import 'package:app_academias/domain/Pessoa.dart';
 /**
  * Formulário de Cadastro de Produtos
 **/
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop/providers/person_pers.dart';
-import 'package:shop/providers/person_perss.dart';
+import 'package:app_academias/utils/GlobalObjects.dart';
 
 class StudentsFormScreen extends StatefulWidget {
   @override
@@ -13,6 +13,8 @@ class StudentsFormScreen extends StatefulWidget {
 }
 
 class _StudentsFormScreenState extends State<StudentsFormScreen> {
+  GestorService gestorService = null;
+
   final _name_persFocusNode = FocusNode();
   final _nickname_persFocusNode = FocusNode();
   final _address_persFocusNode = FocusNode();
@@ -38,22 +40,22 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
     super.didChangeDependencies();
 
     if (_formData.isEmpty) {
-      final person_pers = ModalRoute.of(context).settings.arguments as Person_pers;
+      final pessoa =  ModalRoute.of(context).settings.arguments as Pessoa;
 
-      if (person_pers != null) {
-        _formData['id'] = person_pers.id;
-        _formData['code_pers'] = person_pers.code_pers;
-        _formData['name_pers'] = person_pers.name_pers;
-        _formData['nickname_pers'] = person_pers.nickname_pers;
-        _formData['address_pers'] = person_pers.address_pers;
-        _formData['city_pers'] = person_pers.city_pers;
-        _formData['cpf_pers'] = person_pers.cpf_pers;
-        _formData['rg_pers'] = person_pers.rg_pers;
-        _formData['birth_pers'] = person_pers.birth_pers;
-        _formData['phonewhats_pers'] = person_pers.phonewhats_pers;
-        _formData['email_pers'] = person_pers.email_pers;
-        _formData['comments_pers'] = person_pers.comments_pers;
+      if (pessoa != null) {
 
+        _formData['codigopess'] = pessoa.codigopess;
+        _formData['nomepess'] = pessoa.nomepess;
+        _formData['nascimentopess'] = pessoa.nascimentopess;
+        _formData['enderecopess'] = pessoa.enderecopess;
+        _formData['cpfpess'] = pessoa.cpfpess;
+        _formData['rgpess'] = pessoa.rgpess;
+        _formData['cidadepess'] = pessoa.cidadepess;
+        _formData['fonewpess'] = pessoa.fonewpess;
+        _formData['fone2pess'] = pessoa.fone2pess;
+        _formData['fone3pess'] = pessoa.fone3pess;
+        _formData['emailpess'] = pessoa.emailpess;
+        _formData['observacoespess'] = pessoa.observacoespess;
       }
     }
   }
@@ -75,29 +77,28 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
 
     _form.currentState.save();
 
-    final person_pers = Person_pers(
-      id: _formData['id'],
-      code_pers: _formData['code_pers'],
-      name_pers: _formData['name_pers'],
-      nickname_pers: _formData['nickname_pers'],
-      address_pers: _formData['address_pers'],
-      city_pers: _formData['city_pers'],
-      cpf_pers: _formData['cpf_pers'],
-      rg_pers: _formData['rg_pers'],
-      birth_pers: _formData['birth_pers'],
-      phonewhats_pers: _formData['phonewhats_pers'],
-      email_pers: _formData['email_pers'],
-      comments_pers: _formData['comments_pers'],
-    );
+    final pessoa = Pessoa(
+        codigopess: _formData['codigopess'],
+        nomepess: _formData['nomepess'],
+        nascimentopess: _formData['nascimentopess'],
+        enderecopess: _formData['enderecopess'],
+        cpfpess: _formData['cpfpess'],
+        rgpess: _formData['rgpess'],
+        cidadepess: _formData['cidadepess'],
+        fonewpess: _formData['fonewpess'],
+        fone2pess: _formData['fone2pess'],
+        fone3pess: _formData['fone3pess'],
+        emailpess: _formData['emailpess'],
+        observacoespess: _formData['observacoespess']);
 
     setState(() {
       _isLoading = true;
     });
 
-    final person_perss = Provider.of<Person_perss>(context, listen: false);
+    final pessoaList = gestorService.pessoaList;
 
     try {
-      await person_perss.addPerson_pers(person_pers);
+      await pessoaList.updateInsertPessoa(pessoa);
       Navigator.of(context).pop();
     } catch (error) {
       await showDialog<Null>(
@@ -122,6 +123,8 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    GestorService gestorService = Provider.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Formulário Aluno'),

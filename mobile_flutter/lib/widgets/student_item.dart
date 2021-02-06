@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop/exceptions/http_exception.dart';
-
-import '../providers/person_pers.dart';
-import '../providers/person_perss.dart';
+import 'package:app_academias/exceptions/http_exception.dart';
+import 'package:app_academias/utils/GlobalObjects.dart';
 import '../utils/app_routes.dart';
 
 class StudentItem extends StatelessWidget {
-  final Person_pers person_pers;
+  GestorService gestorService = null;
 
-  StudentItem(this.person_pers);
+  // final Person_pers person_pers;
+  final Pessoa pessoa;
+
+  StudentItem(this.pessoa);
 
   @override
   Widget build(BuildContext context) {
+    GestorService gestorService = Provider.of(context);
+
     final scaffold = Scaffold.of(context);
     return ListTile(
-      title: Text('${person_pers.code_pers} - ' + person_pers.name_pers),
+      title: Text('${pessoa.codigopess} - ' + pessoa.nomepess),
       trailing: Container(
         width: 100,
         child: Row(
@@ -25,7 +28,7 @@ class StudentItem extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               onPressed: () {
                 Navigator.of(context)
-                    .pushNamed(AppRoutes.STUDENTS_FORM, arguments: person_pers);
+                    .pushNamed(AppRoutes.STUDENTS_FORM, arguments: pessoa);
               },
             ),
             IconButton(
@@ -51,8 +54,7 @@ class StudentItem extends StatelessWidget {
                 ).then((value) async {
                   if (value) {
                     try {
-                      await Provider.of<Person_perss>(context, listen: false)
-                          .deletePerson(person_pers.id);
+                      await gestorService.pessoaList.deletePessoa(pessoa.codigopess);
                     } on HttpException catch (error) {
                       scaffold.showSnackBar(
                         SnackBar(

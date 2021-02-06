@@ -1,0 +1,8 @@
+  GestorService gestorService = null;
+  GestorService gestorService = Provider.of(context);
+
+
+import 'package:app_academias/utils/GlobalObjects.dart';
+
+
+person_pers
