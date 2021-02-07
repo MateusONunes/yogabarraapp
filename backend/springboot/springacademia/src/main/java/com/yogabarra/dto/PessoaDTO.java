@@ -13,6 +13,7 @@ public class PessoaDTO {
 
   private long codigopess;
   private String nomepess;
+  private String apelidopess;
   private Date nascimentopess;
   private String enderecopess;
   private String cpfpess;

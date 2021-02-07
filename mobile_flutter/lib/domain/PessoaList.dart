@@ -1,6 +1,6 @@
 import 'package:app_academias/utils/GlobalObjects.dart';
 
-class PessoaList{
+class PessoaList {
   List<Pessoa> items = [];
 
   int get itemsCount => items.length;
@@ -11,67 +11,42 @@ class PessoaList{
     return Future.value();
   }
 
+  int pessoaBycodigopessGetIndex(int codigopess) {
+    for (var i = 0; i < items.length; ++i) {
+      if (items[i].codigopess == codigopess)
+        return i;
+    }
+
+    return -1;
+  }
+
+  Pessoa pessoaBycodigopess(int codigopess) => items[pessoaBycodigopessGetIndex(codigopess)];
+
   Future<void> updateInsertPessoa(Pessoa pessoaUpdate) async {
-    // int code_pers = 100;
-    //
-    // if (newPerson_pers.code_pers != null){
-    //   code_pers = int.parse(newPerson_pers.code_pers);
-    // } else {
-    //   Firestore db = Firestore.instance;
-    //   QuerySnapshot querySnapshot = await db
-    //     .collection("sequence")
-    //     .getDocuments();
-    //
-    //   for(DocumentSnapshot item in querySnapshot.documents) {//TODO - Tirar do Laço
-    //     var dados = item.data;
-    //     code_pers = dados['code_pers'];
-    //   }
-    //
-    //   code_pers++;
-    //
-    //   Firestore.instance.collection("sequence").document('1').setData({"code_pers": code_pers});
-    // }
-    //
-    // Firestore.instance.collection("person_pers").document(code_pers.toString()).setData(
-    //   {
-    //     "id": code_pers,
-    //     "code_pers": code_pers,
-    //     "name_pers": newPerson_pers.name_pers,
-    //     "nickname_pers": newPerson_pers.nickname_pers,
-    //     "address_pers": newPerson_pers.address_pers,
-    //     "city_pers": newPerson_pers.city_pers,
-    //     "cpf_pers": newPerson_pers.cpf_pers,
-    //     "rg_pers": newPerson_pers.rg_pers,
-    //     "birth_pers": newPerson_pers.birth_pers,
-    //     "phonewhats_pers": newPerson_pers.phonewhats_pers,
-    //     "email_pers": newPerson_pers.email_pers,
-    //     "comments_pers": newPerson_pers.comments_pers,
-    //   }
-    // );
-    //
-    // if (newPerson_pers.code_pers == null) {
-    //   _items.add(Person_pers(
-    //     id: code_pers.toString(),
-    //     code_pers: code_pers.toString(),
-    //     name_pers: newPerson_pers.name_pers,
-    //     nickname_pers: newPerson_pers.nickname_pers,
-    //     address_pers: newPerson_pers.address_pers,
-    //     city_pers: newPerson_pers.city_pers,
-    //     cpf_pers: newPerson_pers.cpf_pers,
-    //     rg_pers: newPerson_pers.rg_pers,
-    //     birth_pers: newPerson_pers.birth_pers,
-    //     phonewhats_pers: newPerson_pers.phonewhats_pers,
-    //     email_pers: newPerson_pers.email_pers,
-    //     comments_pers: newPerson_pers.comments_pers,
-    //   ));
-    // } else {
-    //   final indexPerson = _items.indexWhere((person) => person.id == newPerson_pers.id);
-    //   _items[indexPerson] = newPerson_pers;
-    // }
-    // notifyListeners();
+    Pessoa pessoaWS = await globalGestorservice.ws.postPessoa(pessoaUpdate);
+
+    int indexPessoa = pessoaBycodigopessGetIndex(pessoaWS.codigopess);
+
+    if (indexPessoa == -1) {
+      items.add(pessoaWS);
+    } else {
+      items[indexPessoa].copyFrom(pessoaWS);
+    }
   }
 
   Future<void> deletePessoa(int codigopess) async {
+    int index = pessoaBycodigopessGetIndex(codigopess);
+
+    if (index != -1){
+      await globalGestorservice.ws.deletePessoa(codigopess);
+      items.removeRange(index, index + 1);
+      print('x');
+
+    }else{
+      throw 'Não foi possível deletar o aluno de código: ' + codigopess.toString();
+    }
+
+
     // final index = _items.indexWhere((person) => person.id== id);
     // if (index >= 0) {
     //   final person_pers = _items[index];
@@ -86,5 +61,4 @@ class PessoaList{
     //
     // }
   }
-
 }

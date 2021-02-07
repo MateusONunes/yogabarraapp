@@ -15,16 +15,19 @@ class StudentsFormScreen extends StatefulWidget {
 class _StudentsFormScreenState extends State<StudentsFormScreen> {
   GestorService gestorService = null;
 
-  final _name_persFocusNode = FocusNode();
-  final _nickname_persFocusNode = FocusNode();
-  final _address_persFocusNode = FocusNode();
-  final _city_persFocusNode = FocusNode();
-  final _cpf_persFocusNode = FocusNode();
-  final _rg_persFocusNode = FocusNode();
-  final _birth_persFocusNode = FocusNode();
-  final _email_persFocusNode = FocusNode();
-  final _phonewhats_persFocusNode = FocusNode();
-  final _comments_persFocusNode = FocusNode();
+  // final _codigopessFocusNode = FocusNode():
+  final _nomepessFocusNode = FocusNode();
+  final _apelidopessFocusNode = FocusNode();
+  final _nascimentopessFocusNode = FocusNode();
+  final _enderecopessFocusNode = FocusNode();
+  final _cpfpessFocusNode = FocusNode();
+  final _rgpessFocusNode = FocusNode();
+  final _cidadepessFocusNode = FocusNode();
+  final _fonewpessFocusNode = FocusNode();
+  final _fone2pessFocusNode = FocusNode();
+  final _fone3pessFocusNode = FocusNode();
+  final _emailpessFocusNode = FocusNode();
+  final _observacoespessFocusNode = FocusNode();
 
   final _form = GlobalKey<FormState>();
   final _formData = Map<String, Object>();
@@ -46,6 +49,7 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
 
         _formData['codigopess'] = pessoa.codigopess;
         _formData['nomepess'] = pessoa.nomepess;
+        _formData['apelidopess'] = pessoa.apelidopess;
         _formData['nascimentopess'] = pessoa.nascimentopess;
         _formData['enderecopess'] = pessoa.enderecopess;
         _formData['cpfpess'] = pessoa.cpfpess;
@@ -63,9 +67,6 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
   @override
   void dispose() {
     super.dispose();
-    _name_persFocusNode.dispose();
-    _nickname_persFocusNode.dispose();
-    _address_persFocusNode.dispose();
   }
 
   Future<void> _saveForm() async {
@@ -80,6 +81,7 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
     final pessoa = Pessoa(
         codigopess: _formData['codigopess'],
         nomepess: _formData['nomepess'],
+        apelidopess: _formData['apelidopess'],
         nascimentopess: _formData['nascimentopess'],
         enderecopess: _formData['enderecopess'],
         cpfpess: _formData['cpfpess'],
@@ -99,13 +101,14 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
 
     try {
       await pessoaList.updateInsertPessoa(pessoa);
+      gestorService.notifyListeners();
       Navigator.of(context).pop();
     } catch (error) {
       await showDialog<Null>(
         context: context,
         builder: (ctx) => AlertDialog(
           title: Text('Ocorreu um erro!'),
-          content: Text('Ocorreu um erro pra salvar o aluno!'),
+          content: Text('Ocorreu um erro ao salvar o aluno\n${error.toString()}'),
           actions: <Widget>[
             FlatButton(
               child: Text('Fechar'),
@@ -123,7 +126,7 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    GestorService gestorService = Provider.of(context);
+    gestorService = Provider.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -148,13 +151,13 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
                 child: ListView(
                   children: <Widget>[
                     TextFormField(
-                      initialValue: _formData['name_pers'],
+                      initialValue: _formData['nomepess'],
                       decoration: InputDecoration(labelText: 'Nome'),
                       textInputAction: TextInputAction.next,
                       onFieldSubmitted: (_) {
-                        FocusScope.of(context).requestFocus(_name_persFocusNode);
+                        FocusScope.of(context).requestFocus(_nomepessFocusNode);
                       },
-                      onSaved: (value) => _formData['name_pers'] = value,
+                      onSaved: (value) => _formData['nomepess'] = value,
                       validator: (value) {
                         bool isEmpty = value.trim().isEmpty;
                         bool isInvalid = value.trim().length < 3;
@@ -172,13 +175,13 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
                         Flexible(
                             flex: 2,
                             child: TextFormField(
-                            initialValue: _formData['nickname_pers'],
+                            initialValue: _formData['apelidopess'],
                             decoration: InputDecoration(labelText: 'Apelido'),
                             textInputAction: TextInputAction.next,
                             onFieldSubmitted: (_) {
-                              FocusScope.of(context).requestFocus(_nickname_persFocusNode);
+                              FocusScope.of(context).requestFocus(_apelidopessFocusNode);
                             },
-                            onSaved: (value) => _formData['nickname_pers'] = value,
+                            onSaved: (value) => _formData['apelidopess'] = value,
                           ),
                         ),
                         Flexible(
@@ -186,13 +189,13 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
                           child: Container(
                             margin: EdgeInsets.only(left: 10),
                             child: TextFormField(
-                              initialValue: _formData['city_pers'],
+                              initialValue: _formData['cidadepess'],
                               decoration: InputDecoration(labelText: 'Cidade'),
                               textInputAction: TextInputAction.next,
                               onFieldSubmitted: (_) {
-                                FocusScope.of(context).requestFocus(_city_persFocusNode);
+                                FocusScope.of(context).requestFocus(_cidadepessFocusNode);
                               },
-                              onSaved: (value) => _formData['city_pers'] = value,
+                              onSaved: (value) => _formData['cidadepess'] = value,
                               validator: (value) {
                               return null;
                             },
@@ -202,13 +205,13 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
                       ],
                     ),
                     TextFormField(
-                      initialValue: _formData['address_pers'],
+                      initialValue: _formData['enderecopess'],
                       decoration: InputDecoration(labelText: 'Endereço'),
                       textInputAction: TextInputAction.next,
                       onFieldSubmitted: (_) {
-                        FocusScope.of(context).requestFocus(_address_persFocusNode);
+                        FocusScope.of(context).requestFocus(_enderecopessFocusNode);
                       },
-                      onSaved: (value) => _formData['address_pers'] = value,
+                      onSaved: (value) => _formData['enderecopess'] = value,
                       validator: (value) {
                         bool isEmpty = value.trim().isEmpty;
                         bool isInvalid = value.trim().length < 3;
@@ -226,13 +229,13 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
                         Flexible(
                             flex: 2,
                             child: TextFormField(
-                            initialValue: _formData['rg_pers'],
+                            initialValue: _formData['rgpess'],
                             decoration: InputDecoration(labelText: 'RG'),
                             textInputAction: TextInputAction.next,
                             onFieldSubmitted: (_) {
-                              FocusScope.of(context).requestFocus(_rg_persFocusNode);
+                              FocusScope.of(context).requestFocus(_rgpessFocusNode);
                             },
-                            onSaved: (value) => _formData['rg_pers'] = value,
+                            onSaved: (value) => _formData['rgpess'] = value,
                             validator: (value) {
                               return null;
                             },
@@ -243,13 +246,13 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
                           child: Container(
                             margin: EdgeInsets.only(left: 10),
                             child: TextFormField(
-                              initialValue: _formData['cpf_pers'],
+                              initialValue: _formData['cpfpess'],
                               decoration: InputDecoration(labelText: 'CPF'),
                               textInputAction: TextInputAction.next,
                               onFieldSubmitted: (_) {
-                                FocusScope.of(context).requestFocus(_cpf_persFocusNode);
+                                FocusScope.of(context).requestFocus(_cpfpessFocusNode);
                               },
-                              onSaved: (value) => _formData['cpf_pers'] = value,
+                              onSaved: (value) => _formData['cpfpess'] = value,
                               validator: (value) {
                               return null;
                             },
@@ -264,13 +267,13 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
                         Flexible(
                             flex: 2,
                             child: TextFormField(
-                            initialValue: _formData['birth_pers'],
+                            initialValue: _formData['nascimentopess'],
                             decoration: InputDecoration(labelText: 'Aniversário'),
                             textInputAction: TextInputAction.next,
                             onFieldSubmitted: (_) {
-                              FocusScope.of(context).requestFocus(_birth_persFocusNode);
+                              FocusScope.of(context).requestFocus(_nascimentopessFocusNode);
                             },
-                            onSaved: (value) => _formData['birth_pers'] = value,
+                            onSaved: (value) => _formData['nascimentopess'] = value,
                             validator: (value) {
                               return null;
                             },
@@ -281,13 +284,13 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
                           child: Container(
                             margin: EdgeInsets.only(left: 10),
                             child: TextFormField(
-                              initialValue: _formData['email_pers'],
+                              initialValue: _formData['emailpess'],
                               decoration: InputDecoration(labelText: 'e-mail'),
                               textInputAction: TextInputAction.next,
                               onFieldSubmitted: (_) {
-                                FocusScope.of(context).requestFocus(_email_persFocusNode);
+                                FocusScope.of(context).requestFocus(_emailpessFocusNode);
                               },
-                              onSaved: (value) => _formData['email_pers'] = value,
+                              onSaved: (value) => _formData['emailpess'] = value,
                               validator: (value) {
                               return null;
                             },
@@ -297,12 +300,12 @@ class _StudentsFormScreenState extends State<StudentsFormScreen> {
                       ],
                     ),
                     TextFormField(
-                      initialValue: _formData['comments_pers'],
+                      initialValue: _formData['observacoespess'],
                       decoration: InputDecoration(labelText: 'Observações'),
                       maxLines: 5,
                       keyboardType: TextInputType.multiline,
-                      focusNode: _comments_persFocusNode,
-                      onSaved: (value) => _formData['comments_pers'] = value,
+                      focusNode: _observacoespessFocusNode,
+                      onSaved: (value) => _formData['observacoespess'] = value,
                       validator: (value) {
                         return null;
                       },

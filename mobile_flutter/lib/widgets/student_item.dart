@@ -18,7 +18,7 @@ class StudentItem extends StatelessWidget {
 
     final scaffold = Scaffold.of(context);
     return ListTile(
-      title: Text('${pessoa.codigopess} - ' + pessoa.nomepess),
+      title: Text('${pessoa.codigopess} - ${pessoa.nomepess??''}'),
       trailing: Container(
         width: 100,
         child: Row(
@@ -55,6 +55,7 @@ class StudentItem extends StatelessWidget {
                   if (value) {
                     try {
                       await gestorService.pessoaList.deletePessoa(pessoa.codigopess);
+                      gestorService.notifyListeners();
                     } on HttpException catch (error) {
                       scaffold.showSnackBar(
                         SnackBar(

@@ -229,10 +229,64 @@ class WSRestService {
     }
   }
 
+  Future<HttpClientResponse> _requestPost(
+      String url,
+      String bodyJsonEncode,
+      ) async {
+    try {
+      client.connectionTimeout = Duration(seconds: qtdSecondsTimeout);
+      final request = await client.postUrl(Uri.parse(url));
+      request.headers.set(
+          HttpHeaders.contentTypeHeader, "application/json; charset=UTF-8");
+      request.add(utf8.encode(bodyJsonEncode));
+
+      var response = await request.close();
+
+      Logger.setLogger(
+          "URL: ${url}", this.runtimeType.toString(), '-_requestPost-');
+
+      return response;
+    } catch (ex) {
+      //Definindo os tipos de exceção
+      String msgErro = ex.toString(); //Mensagem de erro padrão
+
+      if (ex is SocketException) {
+        //Erro de conexão, verificando o status da rede
+        StatusRede statusRede = await connectionUtil.verificarRede();
+        if (statusRede.isRedeAtiva) {
+          msgErro =
+          "Houve um problema com a sua rede. Verifique se a sua conexão possui acesso a intenet";
+          throw msgErro;
+        } else {
+          //Verificando se o usuario esta com o wifi ou dados moveis ligado
+          if (statusRede.tipoRede == "WIFI" ||
+              statusRede.tipoRede == "MOBILE") {
+            msgErro =
+            "Seu aparelho não está conectado a internet, por favor tente novamente mais tarde.";
+            throw msgErro;
+          } else {
+            //Usuario esta com wifi e redes moveis desconectada
+            msgErro =
+            "Seu aparelho não está conectado a internet, por favor ative a rede móvel ou wifi e tente novamente";
+            throw msgErro;
+          }
+        }
+      }
+      if (ex is TimeoutException) {
+        msgErro =
+        "Erro de conexão, O servidor demorou para responder. Tente novamente mais tarde";
+        throw msgErro;
+      }
+
+      throw ex;
+    }
+  }
+
+
   Future<List<Pessoa>> getPessoas() async {
     try {
       //https://localhost:8444/cliente/xxx
-      HttpClientResponse _response = await _requestGet(urlPessoaWS, "");
+      HttpClientResponse _response = await _requestGet(urlPessoaGetWS, "");
 
       String _body = await _response.transform(utf8.decoder).join();
       var jsonObject = jsonDecode(_body);
@@ -249,4 +303,64 @@ class WSRestService {
       throw ex.toString();
     }
   }
+
+
+  Future<Pessoa> postPessoa(Pessoa pessoa) async {
+    String log = 'Post Pessoa';
+
+    try {
+      var param = jsonEncode(pessoa.toJSON());
+
+      Logger.setLogger("postPessoa : ${param.toString()}", "WSRestService", log);
+
+      HttpClientResponse _response = await _requestPost(urlPessoaPostWS, param);
+
+      if ((_response.statusCode == 200) || (_response.statusCode == 201)){
+
+        String urlRequisicao = _response.headers.value('Location');
+
+        if ((pessoa.codigopess??0) == 0) {
+          //trata-se de um insert. Vou atribuir o pessoa.codigopess retornado pelo servidor em "location"
+          var pos = urlRequisicao.lastIndexOf('/');
+          String codigopess = (pos != -1) ? urlRequisicao.substring(pos + 1, urlRequisicao.length) : urlRequisicao;
+          pessoa.codigopess = int.parse(codigopess);
+        }
+
+        return pessoa;
+      } else {
+
+        String _body = await _response.transform(utf8.decoder).join();
+        var jsonObject = jsonDecode(_body);
+        throw "Houve um erro ao salvar Pessoa: ${jsonObject['message']}";
+      }
+
+    } catch (ex, stacktrace) {
+      Logger.setLogger(stacktrace.toString(), this.runtimeType.toString(), log);
+
+      throw ex;
+    }
+  }
+
+  Future<bool> deletePessoa(int codigopess) async {
+    String log = 'Del Pessoa';
+
+    try {
+      Logger.setLogger("delPessoa : ${codigopess.toString()}", "WSRestService", log);
+
+      HttpClientResponse _response = await _requestDelete(urlPessoaDelWS + '/' + codigopess.toString());
+
+      if (_response.statusCode == 200){
+        return true;
+      } else {
+        String _body = await _response.transform(utf8.decoder).join();
+        var jsonObject = jsonDecode(_body);
+        throw "Houve um erro ao deletar Pessoa: ${jsonObject['message']}";
+      }
+
+    } catch (ex, stacktrace) {
+      Logger.setLogger(stacktrace.toString(), this.runtimeType.toString(), log);
+      throw ex;
+    }
+  }
+
 }

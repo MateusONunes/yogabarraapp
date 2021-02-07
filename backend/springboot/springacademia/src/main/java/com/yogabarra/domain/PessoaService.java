@@ -1,12 +1,12 @@
 package com.yogabarra.domain;
 
 import com.yogabarra.dto.PessoaDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,15 +47,16 @@ public class PessoaService {
         return PessoaDTO.create(rep.save(pessoa));
     }
 
-    public PessoaDTO update(Pessoa pessoa, Long codigopess) {
-        Assert.notNull(codigopess, "É necessário informar codigopess");
+    public PessoaDTO update(Pessoa pessoa) {
+        Assert.notNull(pessoa.getCodigopess(), "É necessário informar codigopess");
 
-        Optional<Pessoa> optional = rep.findById(codigopess);
+        Optional<Pessoa> optional = rep.findById(pessoa.getCodigopess());
 
         if(optional.isPresent()){
             Pessoa db = optional.get();
             //Copiar as propriedades
             db.setNomepess(pessoa.getNomepess());
+            db.setApelidopess(pessoa.getApelidopess());
             db.setNascimentopess(pessoa.getNascimentopess());
             db.setEnderecopess(pessoa.getEnderecopess());
             db.setCpfpess(pessoa.getCpfpess());

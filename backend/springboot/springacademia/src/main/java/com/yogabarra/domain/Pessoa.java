@@ -20,6 +20,7 @@ public class Pessoa {
 
     @Column(name="nomepess")
     private String nomepess;
+    private String apelidopess;
 
     private Date nascimentopess;
     private String enderecopess;
